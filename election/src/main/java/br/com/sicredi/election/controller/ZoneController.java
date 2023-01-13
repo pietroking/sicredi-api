@@ -34,10 +34,10 @@ public class ZoneController {
         return ResponseEntity.status(HttpStatus.CREATED).body(zoneService.save(request));
     }
 
-    @DeleteMapping("/{number}")
+    @DeleteMapping("/{id}")
     @ZoneDeleteStandard
-    public ResponseEntity<Void> delete(@PathVariable("number") Long number){
-        this.zoneService.delete(number);
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id){
+        this.zoneService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 

@@ -1,4 +1,4 @@
-package br.com.sicredi.election.enuns;
+package br.com.sicredi.election.enums;
 
 import br.com.sicredi.election.exception.BusinessException;
 import org.springframework.http.HttpStatus;
@@ -8,7 +8,9 @@ public enum Message {
     ZONE_NUMBER_IS_PRESENT("Número da zona já existe", HttpStatus.BAD_REQUEST),
     ZONE_IS_NOT_EXIST("A zona não existe", HttpStatus.BAD_REQUEST),
     SESSION_NUMBER_IS_PRESENT("Número da seção já existe", HttpStatus.BAD_REQUEST),
-    SESSION_IS_NOT_EXIST("A seção não existe", HttpStatus.BAD_REQUEST);
+    SESSION_IS_NOT_EXIST("A seção não existe", HttpStatus.BAD_REQUEST),
+    COLLABORATOR_CPF_IS_PRESENT("Colaborador com esse cpf já existe.", HttpStatus.BAD_REQUEST),
+    COLLABORATOR_CPF_IS_NOT_EXIST("Não existe colaborador com esse cpf.", HttpStatus.BAD_REQUEST);
 
     private String value;
     private String description;
@@ -22,6 +24,10 @@ public enum Message {
     private Message(String value, String description, HttpStatus statusCode) {
         this.value = value;
         this.description = description;
+        this.statusCode = statusCode;
+    }
+
+    private Message(HttpStatus statusCode){
         this.statusCode = statusCode;
     }
 

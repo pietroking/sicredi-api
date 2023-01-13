@@ -4,7 +4,7 @@ import br.com.sicredi.election.core.dto.session.SessionRequest;
 import br.com.sicredi.election.core.dto.session.SessionResponse;
 import br.com.sicredi.election.core.entities.Session;
 import br.com.sicredi.election.core.mapper.SessionMapper;
-import br.com.sicredi.election.enuns.Message;
+import br.com.sicredi.election.enums.Message;
 import br.com.sicredi.election.repository.SessionRepository;
 import br.com.sicredi.election.repository.ZoneRepository;
 import lombok.AllArgsConstructor;
@@ -27,12 +27,12 @@ public class SessionService {
 
     public List<SessionResponse> findAll(){
         log.info("findAll");
-        return this.sessionMapper.listEntityToLinsResponse(this.sessionRepository.findAll());
+        return this.sessionMapper.listEntityToListResponse(this.sessionRepository.findAll());
     }
 
     public List<SessionResponse> findByZone(Long idZone){
         log.info("findByZone");
-        return this.sessionMapper.listEntityToLinsResponse(this.sessionRepository.findByIdZone(idZone));
+        return this.sessionMapper.listEntityToListResponse(this.sessionRepository.findByIdZone(idZone));
     }
 
     public SessionResponse save(@Valid SessionRequest request){
@@ -48,7 +48,7 @@ public class SessionService {
 
     @Transactional
     public SessionResponse update(@Valid SessionRequest request, Long id){
-        log.info(" update request = {}", request);
+        log.info("update request = {}", request);
         Session session = this.sessionRepository.findById(id).orElseThrow(Message.SESSION_IS_NOT_EXIST::asBusinessException);
         this.sessionRepository.findByNumber(request.getNumber()).ifPresent(p -> {
             throw Message.SESSION_NUMBER_IS_PRESENT.asBusinessException();
@@ -57,9 +57,9 @@ public class SessionService {
         return this.sessionMapper.entityToResponse(session);
     }
 
-    public void delete(Long number) {
-        Session session = this.sessionRepository.findByNumber(number).orElseThrow(Message.SESSION_IS_NOT_EXIST::asBusinessException);
+    public void delete(Long id) {
+        Session session = this.sessionRepository.findById(id).orElseThrow(Message.SESSION_IS_NOT_EXIST::asBusinessException);
         this.sessionRepository.deleteById(session.getId());
-        log.info("method = delete number = {}",number);
+        log.info("method = delete by id = {}",id);
     }
 }

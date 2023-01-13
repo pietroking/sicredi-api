@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface SessionMapper {
-    List<SessionResponse> listEntityToLinsResponse(List<Session> session);
+    List<SessionResponse> listEntityToListResponse(List<Session> session);
     Session requstToEntity(SessionRequest request);
     SessionResponse entityToResponse(Session session);
 }

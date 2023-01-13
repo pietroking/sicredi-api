@@ -9,10 +9,8 @@ import java.util.List;
 
 public class ElectionScenarioFactory {
     public static final List<Zone> LIST_ZONE = loadListZone();
-
     public static final List<ZoneResponse> LIST_ZONE_RESPONSE = loadListZoneResponse();
-
-    public static final ZoneRequest PAYLOAD_REQUEST = loadZoneRequest();
+    public static final ZoneRequest PAYLOAD_REQUEST_13 = loadZoneRequest();
     public static final Zone PAYLOAD_ZONE_13 = loadZone13();
     public static final ZoneResponse PAYLOAD_ZONE_13_RESPONSE = loadZone13Response();
     public static final ZoneResponse PAYLOAD_ZONE_17_RESPONSE = loadZone17Response();
@@ -30,7 +28,6 @@ public class ElectionScenarioFactory {
         zone17.setNumber(17L);
         return zone17;
     }
-
 
     private static ZoneResponse loadZone13Response() {
         ZoneResponse zone13 = new ZoneResponse();

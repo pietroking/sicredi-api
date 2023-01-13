@@ -4,7 +4,7 @@ import br.com.sicredi.election.core.dto.zone.ZoneRequest;
 import br.com.sicredi.election.core.dto.zone.ZoneResponse;
 import br.com.sicredi.election.core.entities.Zone;
 import br.com.sicredi.election.core.mapper.ZoneMapper;
-import br.com.sicredi.election.enuns.Message;
+import br.com.sicredi.election.enums.Message;
 import br.com.sicredi.election.repository.ZoneRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -49,9 +49,9 @@ public class ZoneService {
         return this.zoneMapper.entityToResponse(zone);
     }
 
-    public void delete(Long number) {
-        Zone zone = this.zoneRepository.findByNumber(number).orElseThrow(Message.ZONE_IS_NOT_EXIST::asBusinessException);
+    public void delete(Long id) {
+        Zone zone = this.zoneRepository.findById(id).orElseThrow(Message.ZONE_IS_NOT_EXIST::asBusinessException);
         this.zoneRepository.deleteById(zone.getId());
-        log.info("method = delete number = {}",number);
+        log.info("method = delete by id = {}",id);
     }
 }

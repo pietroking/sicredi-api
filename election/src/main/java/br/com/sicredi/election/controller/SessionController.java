@@ -38,10 +38,10 @@ public class SessionController {
         return ResponseEntity.status(HttpStatus.CREATED).body(sessionService.save(request));
     }
 
-    @DeleteMapping("/{number}")
+    @DeleteMapping("/{id}")
     @SessionDeleteStandard
-    public ResponseEntity<Void> delete(@PathVariable("number") Long number){
-        this.sessionService.delete(number);
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id){
+        this.sessionService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
