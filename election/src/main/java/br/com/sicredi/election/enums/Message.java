@@ -10,7 +10,11 @@ public enum Message {
     SESSION_NUMBER_IS_PRESENT("Número da seção já existe", HttpStatus.BAD_REQUEST),
     SESSION_IS_NOT_EXIST("A seção não existe", HttpStatus.BAD_REQUEST),
     COLLABORATOR_CPF_IS_PRESENT("Colaborador com esse cpf já existe.", HttpStatus.BAD_REQUEST),
-    COLLABORATOR_CPF_IS_NOT_EXIST("Não existe colaborador com esse cpf.", HttpStatus.BAD_REQUEST);
+    COLLABORATOR_CPF_IS_NOT_EXIST("Não existe colaborador com esse cpf.", HttpStatus.BAD_REQUEST),
+    VOTER_CPF_IS_PRESENT("Eleitor com esse cpf já existe.", HttpStatus.BAD_REQUEST),
+    VOTER_CPF_IS_NOT_EXIST("Não existe eleitor com esse cpf.", HttpStatus.BAD_REQUEST),
+    CANDIDATE_CPF_IS_PRESENT("Candidato com esse cpf já existe.", HttpStatus.BAD_REQUEST),
+    CANDIDATE_CPF_IS_NOT_EXIST("Não existe candidato com esse cpf.", HttpStatus.BAD_REQUEST);
 
     private String value;
     private String description;

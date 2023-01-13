@@ -41,7 +41,7 @@ public class CollaboratorService {
         this.collaboratorRepository.findByCpf(request.getCpf()).ifPresent(p -> {
             throw Message.COLLABORATOR_CPF_IS_PRESENT.asBusinessException();
         });
-        this.sessionRepository.findById(request.getIdSession()).orElseThrow(Message.ZONE_IS_NOT_EXIST::asBusinessException);
+        this.sessionRepository.findById(request.getIdSession()).orElseThrow(Message.SESSION_IS_NOT_EXIST::asBusinessException);
         Collaborator collaboratorResult = this.collaboratorRepository.save(collaborator);
         return this.collaboratorMapper.entityToResposnse(collaboratorResult);
     }

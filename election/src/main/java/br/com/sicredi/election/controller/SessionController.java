@@ -33,7 +33,7 @@ public class SessionController {
     }
 
     @PostMapping
-    @SessionSavaStandard
+    @SessionSaveStandard
     public ResponseEntity<SessionResponse> save(@RequestBody SessionRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body(sessionService.save(request));
     }

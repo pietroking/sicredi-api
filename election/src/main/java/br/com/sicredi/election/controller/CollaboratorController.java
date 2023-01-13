@@ -1,5 +1,8 @@
 package br.com.sicredi.election.controller;
 
+import br.com.sicredi.election.annotation.CollaboratorDeleteStandard;
+import br.com.sicredi.election.annotation.CollaboratorSaveStandard;
+import br.com.sicredi.election.annotation.ListAllCollaboratorCodeStandard;
 import br.com.sicredi.election.core.dto.collaborator.CollaboratorRequest;
 import br.com.sicredi.election.core.dto.collaborator.CollaboratorResponse;
 import br.com.sicredi.election.service.CollaboratorService;
@@ -19,21 +22,25 @@ public class CollaboratorController {
     private CollaboratorService collaboratorService;
 
     @GetMapping
+    @ListAllCollaboratorCodeStandard
     public ResponseEntity<List<CollaboratorResponse>> listAllSession(){
         return ResponseEntity.ok(this.collaboratorService.findAll());
     }
 
     @GetMapping("/{idSession}")
+    @ListAllCollaboratorCodeStandard
     public ResponseEntity<List<CollaboratorResponse>> listCollaboratorForSession(Long idSession){
         return ResponseEntity.ok(this.collaboratorService.findBySession(idSession));
     }
 
     @PostMapping
+    @CollaboratorSaveStandard
     public ResponseEntity<CollaboratorResponse> save (@RequestBody CollaboratorRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body(collaboratorService.save(request));
     }
 
     @DeleteMapping("/{id}")
+    @CollaboratorDeleteStandard
     public ResponseEntity<Void> delete(@PathVariable("id") Long id){
         this.collaboratorService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

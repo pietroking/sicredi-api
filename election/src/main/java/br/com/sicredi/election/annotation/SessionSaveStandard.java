@@ -17,11 +17,11 @@ import java.lang.annotation.Target;
 @Target({ ElementType.METHOD, ElementType.ANNOTATION_TYPE, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @ApiResponses(value = {
-        @ApiResponse(responseCode = "204", description = "Seção deletada",
+        @ApiResponse(responseCode = "201", description = "Seção criada",
                 content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = SessionResponse.class))),
-        @ApiResponse(responseCode = "400", description = "Seção não existente",
+        @ApiResponse(responseCode = "400", description = "Seção já existente",
                 content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = BusinessException.BusinessExceptionBody.class))),
         @ApiResponse(responseCode = "500", description = "Sistema indisponivel",content=@Content(mediaType = MediaType.APPLICATION_JSON_VALUE)) })
-@Operation(summary = Constants.SESSION_DELETE_SUMMARY, description = Constants.SESSION_DELETE_DESCRIPTION)
-public @interface SessionDeleteStandard {
+@Operation(summary = Constants.SESSION_SAVE_SUMMARY, description = Constants.SESSION_SAVE_DESCRIPTION)
+public @interface SessionSaveStandard {
 }

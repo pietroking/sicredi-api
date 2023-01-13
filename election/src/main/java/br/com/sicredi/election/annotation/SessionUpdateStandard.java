@@ -1,6 +1,6 @@
 package br.com.sicredi.election.annotation;
 
-import br.com.sicredi.election.core.dto.zone.ZoneResponse;
+import br.com.sicredi.election.core.dto.session.SessionResponse;
 import br.com.sicredi.election.exception.BusinessException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -18,10 +18,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Seção atualizada",
-                content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = ZoneResponse.class))),
+                content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = SessionResponse.class))),
         @ApiResponse(responseCode = "400", description = "Seção já existente",
                 content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = BusinessException.BusinessExceptionBody.class))),
         @ApiResponse(responseCode = "500", description = "Sistema indisponivel",content=@Content(mediaType = MediaType.APPLICATION_JSON_VALUE)) })
-@Operation(summary = Constants.ZONE_UPDATE_SUMARY, description = Constants.ZONE_UPDATE_DESCRIPTION)
+@Operation(summary = Constants.SESSION_UPDATE_SUMARY, description = Constants.SESSION_UPDATE_DESCRIPTION)
 public @interface SessionUpdateStandard {
 }
