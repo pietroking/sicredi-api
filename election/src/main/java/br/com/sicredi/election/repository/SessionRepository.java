@@ -12,5 +12,4 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
 
     Optional<Session> findByNumber(Long number);
 
-    List<Session> findByIdZone(Long idZone);
 }

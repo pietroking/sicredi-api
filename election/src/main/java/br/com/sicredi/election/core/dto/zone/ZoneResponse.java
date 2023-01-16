@@ -9,6 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ZoneResponse {
-    private Long id;
+    private Long zoneId;
     private Long number;
 }

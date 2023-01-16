@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotNull;
 
@@ -14,10 +15,9 @@ import javax.validation.constraints.NotNull;
 public class VoterRequest {
     @NotNull(message = "O nome não pode ser nulo")
     private String name;
-    @NotNull(message = "O idSession não pode ser nulo")
-    private Long idSession;
+    @NotNull(message = "O sessionId não pode ser nulo")
+    private Long sessionId;
     @NotNull(message = "O cpf não pode ser nulo")
-    private Long cpf;
-    @NotNull(message = "O statusVote não pode ser nulo")
-    private Boolean statusVote;
+    @CPF(message = "O CPF está inválida")
+    private String cpf;
 }

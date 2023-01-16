@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface CollaboratorRepository extends JpaRepository<Collaborator, Long> {
-    Optional<Collaborator> findByCpf(Long cpf);
-    List<Collaborator> findByIdSession(Long idSession);
+    Optional<Collaborator> findByCpf(String cpf);
+
+    List<Collaborator> findBySessionSessionId(Long sessionId);
 }

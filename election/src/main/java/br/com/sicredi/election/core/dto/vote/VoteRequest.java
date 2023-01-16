@@ -1,4 +1,4 @@
-package br.com.sicredi.election.core.dto.collaborator;
+package br.com.sicredi.election.core.dto.vote;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,12 +12,12 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @ToString
-public class CollaboratorRequest {
-    @NotNull(message = "O nome não pode ser nulo")
-    private String nome;
+public class VoteRequest {
+    @NotNull(message = "O number não pode ser nulo")
+    private Long number;
     @NotNull(message = "O sessionId não pode ser nulo")
     private Long sessionId;
+    @CPF(message = "O CPF não é válido")
     @NotNull(message = "O cpf não pode ser nulo")
-    @CPF(message = "O CPF está inválida")
     private String cpf;
 }

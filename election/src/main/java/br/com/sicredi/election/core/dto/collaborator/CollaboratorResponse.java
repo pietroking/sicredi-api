@@ -8,8 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CollaboratorResponse {
-    private Long id;
+    private Long collaboratorId;
     private String nome;
-    private Long idSession;
-    private Long cpf;
+    private Long sessionId;
+    private String cpf;
 }

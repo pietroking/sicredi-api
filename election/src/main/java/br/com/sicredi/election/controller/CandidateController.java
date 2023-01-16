@@ -2,6 +2,7 @@ package br.com.sicredi.election.controller;
 
 import br.com.sicredi.election.core.dto.candidate.CandidateRequest;
 import br.com.sicredi.election.core.dto.candidate.CandidateResponse;
+import br.com.sicredi.election.core.dto.candidate.CandidateResultResponse;
 import br.com.sicredi.election.service.CandidateService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,11 @@ public class CandidateController {
     @GetMapping("/{name}")
     public ResponseEntity<CandidateResponse> listCandidateForName(String name){
         return ResponseEntity.ok(this.candidateService.findByName(name));
+    }
+
+    @GetMapping("/votes")
+    public ResponseEntity<List<CandidateResultResponse>> countVotos(){
+        return ResponseEntity.ok(this.candidateService.countVotes());
     }
 
     @PostMapping

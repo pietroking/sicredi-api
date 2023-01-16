@@ -8,9 +8,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class VoterResponse {
-    private Long id;
-    private String nome;
-    private Long idSession;
-    private Long cpf;
-    private Boolean statusVote;
+    private Long voterId;
+    private String name;
+    private Long sessionId;
+    private String cpf;
+    private Boolean statusVote=false;
 }

@@ -51,7 +51,7 @@ public class ZoneService {
 
     public void delete(Long id) {
         Zone zone = this.zoneRepository.findById(id).orElseThrow(Message.ZONE_IS_NOT_EXIST::asBusinessException);
-        this.zoneRepository.deleteById(zone.getId());
+        this.zoneRepository.deleteById(zone.getZoneId());
         log.info("method = delete by id = {}",id);
     }
 }

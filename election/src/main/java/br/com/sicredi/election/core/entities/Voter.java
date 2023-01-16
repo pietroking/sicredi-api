@@ -16,18 +16,24 @@ public class Voter {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "voter_id_seq")
     @SequenceGenerator(name = "voter_id_seq", allocationSize = 1)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @Column(name = "voter_id", nullable = false)
+    private Long voterId;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "cpf")
-    private Long cpf;
+    private String cpf;
 
-    @Column(name = "idsession")
-    private Long idSession;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "session_id", referencedColumnName = "session_id")
+    private Session session;
 
     @Column(name = "status_vote")
     private Boolean statusVote;
+
+    @PrePersist
+    private void prePersist(){
+        this.statusVote=Boolean.FALSE;
+    }
 }

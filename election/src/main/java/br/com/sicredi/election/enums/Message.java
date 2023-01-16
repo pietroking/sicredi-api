@@ -5,15 +5,18 @@ import org.springframework.http.HttpStatus;
 
 public enum Message {
 
-    ZONE_NUMBER_IS_PRESENT("Número da zona já existe", HttpStatus.BAD_REQUEST),
-    ZONE_IS_NOT_EXIST("A zona não existe", HttpStatus.BAD_REQUEST),
-    SESSION_NUMBER_IS_PRESENT("Número da seção já existe", HttpStatus.BAD_REQUEST),
-    SESSION_IS_NOT_EXIST("A seção não existe", HttpStatus.BAD_REQUEST),
+    ZONE_NUMBER_IS_PRESENT("Número da zona já existe.", HttpStatus.BAD_REQUEST),
+    ZONE_IS_NOT_EXIST("A zona não existe.", HttpStatus.BAD_REQUEST),
+    SESSION_NUMBER_IS_PRESENT("Número da seção já existe.", HttpStatus.BAD_REQUEST),
+    SESSION_IS_NOT_EXIST("A seção não existe.", HttpStatus.BAD_REQUEST),
     COLLABORATOR_CPF_IS_PRESENT("Colaborador com esse cpf já existe.", HttpStatus.BAD_REQUEST),
-    COLLABORATOR_CPF_IS_NOT_EXIST("Não existe colaborador com esse cpf.", HttpStatus.BAD_REQUEST),
+    COLLABORATOR_IS_NOT_EXIST("O colaborador não existe.", HttpStatus.BAD_REQUEST),
     VOTER_CPF_IS_PRESENT("Eleitor com esse cpf já existe.", HttpStatus.BAD_REQUEST),
-    VOTER_CPF_IS_NOT_EXIST("Não existe eleitor com esse cpf.", HttpStatus.BAD_REQUEST),
+    VOTER_IS_NOT_EXIST("O eleitor não existe.", HttpStatus.BAD_REQUEST),
+    VOTER_HAS_ALREADY_VOTED("Eleitor já votou.", HttpStatus.BAD_REQUEST),
+    SESSION_VOTER_CPF_IS_NOT_PRESENT("CPF do eleitor não encontrado nessa sessão.",HttpStatus.BAD_REQUEST),
     CANDIDATE_CPF_IS_PRESENT("Candidato com esse cpf já existe.", HttpStatus.BAD_REQUEST),
+    CANDIDATE_NOT_EXIST("Candidato com esse número não existe.", HttpStatus.BAD_REQUEST),
     CANDIDATE_CPF_IS_NOT_EXIST("Não existe candidato com esse cpf.", HttpStatus.BAD_REQUEST);
 
     private String value;

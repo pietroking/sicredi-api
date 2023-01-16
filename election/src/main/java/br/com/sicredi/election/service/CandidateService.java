@@ -2,6 +2,7 @@ package br.com.sicredi.election.service;
 
 import br.com.sicredi.election.core.dto.candidate.CandidateRequest;
 import br.com.sicredi.election.core.dto.candidate.CandidateResponse;
+import br.com.sicredi.election.core.dto.candidate.CandidateResultResponse;
 import br.com.sicredi.election.core.entities.Candidate;
 import br.com.sicredi.election.core.mapper.CandidateMapper;
 import br.com.sicredi.election.enums.Message;
@@ -27,9 +28,13 @@ public class CandidateService {
         return this.candidateMapper.listEntityToListResponse(this.candidateRepository.findAll());
     }
 
+    public List<CandidateResultResponse> countVotes(){
+        return this.candidateRepository.countVotes();
+    }
+
     public CandidateResponse findByName(String name){
         log.info("findCpf");
-        return this.candidateMapper.entityToResposnse(this.candidateRepository.findByName(name));
+        return this.candidateMapper.entityToResposnse(this.candidateRepository.findByName(name).orElseThrow(Message.CANDIDATE_NOT_EXIST::asBusinessException));
     }
 
     public CandidateResponse save(@Valid CandidateRequest request){
@@ -44,7 +49,7 @@ public class CandidateService {
 
     public void delete(Long id){
         Candidate candidate = this.candidateRepository.findById(id).orElseThrow(Message.CANDIDATE_CPF_IS_NOT_EXIST::asBusinessException);
-        this.candidateRepository.deleteById(candidate.getId());
+        this.candidateRepository.deleteById(candidate.getCandidateId());
         log.info("method = delete by id = {}",id);
     }
 }

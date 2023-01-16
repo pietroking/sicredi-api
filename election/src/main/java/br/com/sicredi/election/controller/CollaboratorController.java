@@ -46,8 +46,8 @@ public class CollaboratorController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<CollaboratorResponse> update(@RequestBody CollaboratorRequest request, @PathVariable("id") Long id){
-//        return ResponseEntity.status(HttpStatus.OK).body(collaboratorService.update(request,id));
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity<CollaboratorResponse> update(@RequestBody CollaboratorRequest request, @PathVariable("id") Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(collaboratorService.update(request,id));
+    }
 }

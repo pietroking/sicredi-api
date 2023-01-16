@@ -1,5 +1,6 @@
 package br.com.sicredi.election.core.entities;
 
+import br.com.sicredi.election.core.dto.collaborator.CollaboratorRequest;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,15 +16,22 @@ public class Collaborator {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "collaborator_id_seq")
     @SequenceGenerator(name = "collaborator_id_seq", allocationSize = 1)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @Column(name = "collaborator_id", nullable = false)
+    private Long collaboratorId;
 
     @Column(name = "name")
     private String nome;
 
-    @Column(name = "idsession")
-    private Long idSession;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "session_id", referencedColumnName = "session_id")
+    private Session session;
 
     @Column(name = "cpf")
-    private Long cpf;
+    private String cpf;
+
+    public void update(CollaboratorRequest collaboratorRequest){
+        this.nome = collaboratorRequest.getNome();
+        this.session.setSessionId(collaboratorRequest.getSessionId());
+        this.cpf = collaboratorRequest.getCpf();
+    }
 }

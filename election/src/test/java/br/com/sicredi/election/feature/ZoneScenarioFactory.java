@@ -7,7 +7,7 @@ import br.com.sicredi.election.core.entities.Zone;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ElectionScenarioFactory {
+public class ZoneScenarioFactory {
     public static final List<Zone> LIST_ZONE = loadListZone();
     public static final List<ZoneResponse> LIST_ZONE_RESPONSE = loadListZoneResponse();
     public static final ZoneRequest PAYLOAD_REQUEST_13 = loadZoneRequest();
@@ -24,20 +24,20 @@ public class ElectionScenarioFactory {
 
     private static ZoneResponse loadZone17Response() {
         ZoneResponse zone17 = new ZoneResponse();
-        zone17.setId(1L);
+        zone17.setZoneId(1L);
         zone17.setNumber(17L);
         return zone17;
     }
 
     private static ZoneResponse loadZone13Response() {
         ZoneResponse zone13 = new ZoneResponse();
-        zone13.setId(1L);
+        zone13.setZoneId(1L);
         zone13.setNumber(13L);
         return zone13;
     }
 
     private static Zone loadZone13() {
-        return Zone.builder().id(1L).number(13L).build();
+        return Zone.builder().zoneId(1L).number(13L).build();
     }
 
     private static ZoneRequest loadZoneRequest() {
@@ -49,9 +49,9 @@ public class ElectionScenarioFactory {
     private static List<ZoneResponse> loadListZoneResponse() {
         ZoneResponse zone13 = new ZoneResponse();
         ZoneResponse zone17 = new ZoneResponse();
-        zone13.setId(1L);
+        zone13.setZoneId(1L);
         zone13.setNumber(13L);
-        zone17.setId(2L);
+        zone17.setZoneId(2L);
         zone17.setNumber(17L);
         List<ZoneResponse> zoneResponseList = new ArrayList<>();
         zoneResponseList.add(zone13);
@@ -60,8 +60,8 @@ public class ElectionScenarioFactory {
     }
 
     private static List<Zone> loadListZone() {
-        Zone zone13 = Zone.builder().id(1L).number(13L).build();
-        Zone zone17 = Zone.builder().id(2L).number(17L).build();
+        Zone zone13 = Zone.builder().zoneId(1L).number(13L).build();
+        Zone zone17 = Zone.builder().zoneId(2L).number(17L).build();
         List<Zone> zoneList = new ArrayList<>();
         zoneList.add(zone13);
         zoneList.add(zone17);

@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface VoterRepository extends JpaRepository<Voter, Long> {
-    Optional<Voter> findByCpf(Long cpf);
-    List<Voter> findByIdSession(Long idSession);
+    Optional<Voter> findByCpf(String cpf);
+//    List<Voter> findByIdSession(Long idSession);
 //    Optional<Voter> findByStatusVote()
 }

@@ -1,4 +1,4 @@
-package br.com.sicredi.election.core.dto.session;
+package br.com.sicredi.election.core.dto.vote;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,8 +7,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class SessionResponse {
-    private Long sessionId;
-    private Long zoneId;
+public class VoteResponse {
+    private Long voteId;
     private Long number;
+    private Long sessionId;
 }

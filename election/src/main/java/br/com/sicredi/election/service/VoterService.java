@@ -2,7 +2,7 @@ package br.com.sicredi.election.service;
 
 import br.com.sicredi.election.core.dto.voter.VoterRequest;
 import br.com.sicredi.election.core.dto.voter.VoterResponse;
-import br.com.sicredi.election.core.entities.Collaborator;
+import br.com.sicredi.election.core.entities.Session;
 import br.com.sicredi.election.core.entities.Voter;
 import br.com.sicredi.election.core.mapper.VoterMapper;
 import br.com.sicredi.election.enums.Message;
@@ -30,27 +30,22 @@ public class VoterService {
         return this.voterMapper.listEntityToListResponse(this.voterRepository.findAll());
     }
 
-    public List<VoterResponse> findBySession(Long idSession){
-        log.info("findBySession");
-        return this.voterMapper.listEntityToListResponse(this.voterRepository.findByIdSession(idSession));
-    }
-
     public VoterResponse save(@Valid VoterRequest request){
         log.info("save request = {}", request);
-        Voter voter = this.voterMapper.requestToEntity(request);
+        Session session = this.sessionRepository.findById(request.getSessionId()).orElseThrow(Message.SESSION_IS_NOT_EXIST::asBusinessException);
+        Voter voter = this.voterMapper.requestToEntity(request,session);
+        session.addListVoter(voter);
         this.voterRepository.findByCpf(request.getCpf()).ifPresent(p -> {
             throw Message.VOTER_CPF_IS_PRESENT.asBusinessException();
         });
-        this.sessionRepository.findById(request.getIdSession()).orElseThrow(Message.SESSION_IS_NOT_EXIST::asBusinessException);
         Voter voterResult = this.voterRepository.save(voter);
         return this.voterMapper.entityToResposnse(voterResult);
     }
 
     public void delete(Long id){
-        Voter voter = this.voterRepository.findById(id).orElseThrow(Message.VOTER_CPF_IS_NOT_EXIST::asBusinessException);
-        this.voterRepository.deleteById(voter.getId());
+        Voter voter = this.voterRepository.findById(id).orElseThrow(Message.VOTER_IS_NOT_EXIST::asBusinessException);
+        this.voterRepository.deleteById(voter.getVoterId());
         log.info("method = delete by id = {}",id);
     }
-
 
 }

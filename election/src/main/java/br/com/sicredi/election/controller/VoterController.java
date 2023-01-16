@@ -27,11 +27,11 @@ public class VoterController {
         return ResponseEntity.ok(this.voterService.findAll());
     }
 
-    @GetMapping("/{idSession}")
-    @ListAllVoterCodeStandard
-    public ResponseEntity<List<VoterResponse>> listCollaboratorForSession(Long idSession){
-        return ResponseEntity.ok(this.voterService.findBySession(idSession));
-    }
+//    @GetMapping("/{idSession}")
+//    @ListAllVoterCodeStandard
+//    public ResponseEntity<List<VoterResponse>> listCollaboratorForSession(Long idSession){
+//        return ResponseEntity.ok(this.voterService.findBySession(idSession));
+//    }
 
     @PostMapping
     @VoterSaveStandard
