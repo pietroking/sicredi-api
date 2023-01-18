@@ -2,6 +2,7 @@ package br.com.sicredi.election.service;
 
 import br.com.sicredi.election.core.dto.voter.VoterRequest;
 import br.com.sicredi.election.core.dto.voter.VoterResponse;
+import br.com.sicredi.election.core.dto.voter.VoterUpdateRequest;
 import br.com.sicredi.election.core.entities.Session;
 import br.com.sicredi.election.core.entities.Voter;
 import br.com.sicredi.election.core.mapper.VoterMapper;
@@ -11,6 +12,7 @@ import br.com.sicredi.election.repository.VoterRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
@@ -27,7 +29,11 @@ public class VoterService {
 
     public List<VoterResponse> findAll(){
         log.info("findAll");
-        return this.voterMapper.listEntityToListResponse(this.voterRepository.findAll());
+        List<VoterResponse> voterResponses = this.voterMapper.listEntityToListResponse(this.voterRepository.findAll());
+        if (voterResponses.isEmpty()){
+            throw Message.VOTER_LIST_IS_EMPTY.asBusinessException();
+        }
+        return voterResponses;
     }
 
     public VoterResponse save(@Valid VoterRequest request){
@@ -40,6 +46,16 @@ public class VoterService {
         });
         Voter voterResult = this.voterRepository.save(voter);
         return this.voterMapper.entityToResposnse(voterResult);
+    }
+
+    @Transactional
+    public VoterResponse update(@Valid VoterUpdateRequest request, Long id){
+        log.info("update request = {}", request);
+        Voter voter = this.voterRepository.findById(id).orElseThrow(Message.COLLABORATOR_IS_NOT_EXIST::asBusinessException);
+        Session session = this.sessionRepository.findById(request.getSessionId()).orElseThrow(Message.SESSION_IS_NOT_EXIST::asBusinessException);
+        voter.update(session);
+        session.addListVoter(voter);
+        return this.voterMapper.entityToResposnse(voter);
     }
 
     public void delete(Long id){

@@ -5,6 +5,7 @@ import br.com.sicredi.election.annotation.CollaboratorSaveStandard;
 import br.com.sicredi.election.annotation.ListAllCollaboratorCodeStandard;
 import br.com.sicredi.election.core.dto.collaborator.CollaboratorRequest;
 import br.com.sicredi.election.core.dto.collaborator.CollaboratorResponse;
+import br.com.sicredi.election.core.dto.collaborator.CollaboratorUpdateRequest;
 import br.com.sicredi.election.service.CollaboratorService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -46,8 +47,8 @@ public class CollaboratorController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<CollaboratorResponse> update(@RequestBody CollaboratorRequest request, @PathVariable("id") Long id){
+    @PatchMapping("/{id}")
+    public ResponseEntity<CollaboratorResponse> update(@RequestBody CollaboratorUpdateRequest request, @PathVariable("id") Long id){
         return ResponseEntity.status(HttpStatus.OK).body(collaboratorService.update(request,id));
     }
 }

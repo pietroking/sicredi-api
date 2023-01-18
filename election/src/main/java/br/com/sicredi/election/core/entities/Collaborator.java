@@ -1,6 +1,7 @@
 package br.com.sicredi.election.core.entities;
 
 import br.com.sicredi.election.core.dto.collaborator.CollaboratorRequest;
+import br.com.sicredi.election.core.dto.collaborator.CollaboratorUpdateRequest;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,9 +30,7 @@ public class Collaborator {
     @Column(name = "cpf")
     private String cpf;
 
-    public void update(CollaboratorRequest collaboratorRequest){
-        this.nome = collaboratorRequest.getNome();
-        this.session.setSessionId(collaboratorRequest.getSessionId());
-        this.cpf = collaboratorRequest.getCpf();
+    public void update(Session session){
+        this.session = session;
     }
 }

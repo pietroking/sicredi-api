@@ -36,4 +36,6 @@ public class Voter {
     private void prePersist(){
         this.statusVote=Boolean.FALSE;
     }
+
+    public void update(Session session){this.session = session;}
 }

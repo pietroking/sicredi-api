@@ -2,6 +2,7 @@ package br.com.sicredi.election.service;
 
 import br.com.sicredi.election.core.dto.collaborator.CollaboratorRequest;
 import br.com.sicredi.election.core.dto.collaborator.CollaboratorResponse;
+import br.com.sicredi.election.core.dto.collaborator.CollaboratorUpdateRequest;
 import br.com.sicredi.election.core.entities.Collaborator;
 import br.com.sicredi.election.core.entities.Session;
 import br.com.sicredi.election.core.mapper.CollaboratorMapper;
@@ -28,7 +29,19 @@ public class CollaboratorService {
 
     public List<CollaboratorResponse> findAll(){
         log.info("findAll");
-        return this.collaboratorMapper.listEntityToListResponse(this.collaboratorRepository.findAll());
+        List<CollaboratorResponse> collaboratorResponses = this.collaboratorMapper.listEntityToListResponse(this.collaboratorRepository.findAll());
+        if (collaboratorResponses.isEmpty()){
+            throw Message.COLLABORATOR_LIST_IS_EMPTY.asBusinessException();        }
+        return collaboratorResponses;
+    }
+
+    public List<CollaboratorResponse> findBySession(Long idSession){
+        log.info("findBySession={}",idSession);
+        List<CollaboratorResponse> collaboratorResponses = this.collaboratorMapper.listEntityToListResponse(this.collaboratorRepository.findBySessionSessionId(idSession));
+        if (collaboratorResponses.isEmpty()){
+            throw Message.COLLABORATOR_LIST_IS_EMPTY.asBusinessException();
+        }
+        return collaboratorResponses;
     }
 
     public CollaboratorResponse save(@Valid CollaboratorRequest request){
@@ -44,17 +57,14 @@ public class CollaboratorService {
     }
 
     @Transactional
-    public CollaboratorResponse update(@Valid CollaboratorRequest request, Long id){
+    public CollaboratorResponse update(@Valid CollaboratorUpdateRequest request, Long id){
         log.info("update request = {}", request);
         Collaborator collaborator = this.collaboratorRepository.findById(id).orElseThrow(Message.COLLABORATOR_IS_NOT_EXIST::asBusinessException);
-        collaborator.update(request);
+        Session session = this.sessionRepository.findById(request.getSessionId()).orElseThrow(Message.SESSION_IS_NOT_EXIST::asBusinessException);
+        collaborator.update(session);
+        session.addCollaborator(collaborator);
         return this.collaboratorMapper.entityToResposnse(collaborator);
 
-    }
-
-    public List<CollaboratorResponse> findBySession(Long idSession){
-        log.info("findBySession={}",idSession);
-        return this.collaboratorMapper.listEntityToListResponse(this.collaboratorRepository.findBySessionSessionId(idSession));
     }
 
     public void delete(Long id){

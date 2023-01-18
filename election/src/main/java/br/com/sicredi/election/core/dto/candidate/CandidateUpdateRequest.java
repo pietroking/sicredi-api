@@ -1,4 +1,4 @@
-package br.com.sicredi.election.core.dto.session;
+package br.com.sicredi.election.core.dto.candidate;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,13 +12,10 @@ import javax.validation.constraints.PositiveOrZero;
 @Getter
 @Setter
 @ToString
-public class SessionRequest {
-    @NotNull(message = "O idZone não pode ser nulo")
-    private Long idZone;
+public class CandidateUpdateRequest {
     @NotNull(message = "O number não pode ser nulo")
     @PositiveOrZero
     private Long number;
-    @NotNull(message = "O urnNumber não pode ser nulo")
-    @PositiveOrZero
-    private Long urnNumber;
+    @NotNull(message = "O party não pode ser nulo")
+    private String party;
 }

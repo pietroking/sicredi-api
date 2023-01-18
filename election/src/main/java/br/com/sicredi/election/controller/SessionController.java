@@ -3,6 +3,7 @@ package br.com.sicredi.election.controller;
 import br.com.sicredi.election.annotation.*;
 import br.com.sicredi.election.core.dto.session.SessionRequest;
 import br.com.sicredi.election.core.dto.session.SessionResponse;
+import br.com.sicredi.election.core.dto.session.SessionUpdateRequest;
 import br.com.sicredi.election.service.SessionService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -45,9 +46,9 @@ public class SessionController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     @SessionUpdateStandard
-    public ResponseEntity<SessionResponse> update(@RequestBody SessionRequest request, @PathVariable("id") Long id){
+    public ResponseEntity<SessionResponse> update(@RequestBody SessionUpdateRequest request, @PathVariable("id") Long id){
         return ResponseEntity.status(HttpStatus.OK).body(sessionService.update(request, id));
     }
 }

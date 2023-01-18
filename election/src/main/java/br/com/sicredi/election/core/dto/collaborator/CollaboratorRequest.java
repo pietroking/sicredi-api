@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.br.CPF;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
@@ -14,6 +15,7 @@ import javax.validation.constraints.NotNull;
 @ToString
 public class CollaboratorRequest {
     @NotNull(message = "O nome não pode ser nulo")
+    @NotBlank
     private String nome;
     @NotNull(message = "O sessionId não pode ser nulo")
     private Long sessionId;
