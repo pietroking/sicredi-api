@@ -25,7 +25,11 @@ public class ZoneService {
 
     public List<ZoneResponse> findAll(){
         log.info("findAll");
-        return this.zoneMapper.listEntityToListResponse(this.zoneRepository.findAll());
+        List<ZoneResponse> zoneResponseList = this.zoneMapper.listEntityToListResponse(this.zoneRepository.findAll());
+        if (zoneResponseList.isEmpty()){
+            throw Message.ZONE_LIST_IS_EMPTY.asBusinessException();
+        }
+        return zoneResponseList;
     }
 
     public ZoneResponse save(@Valid ZoneRequest request){

@@ -11,5 +11,6 @@ import java.util.Optional;
 public interface SessionRepository extends JpaRepository<Session, Long> {
 
     Optional<Session> findByNumber(Long number);
+    Optional<Session> findByUrnNumber(Long unrNumber);
 
 }

@@ -12,12 +12,7 @@ import javax.validation.constraints.PositiveOrZero;
 @Getter
 @Setter
 @ToString
-public class SessionRequest {
-    @NotNull(message = "O idZone não pode ser nulo")
-    private Long idZone;
-    @NotNull(message = "O number não pode ser nulo")
-    @PositiveOrZero
-    private Long number;
+public class SessionUpdateRequest {
     @NotNull(message = "O urnNumber não pode ser nulo")
     @PositiveOrZero
     private Long urnNumber;

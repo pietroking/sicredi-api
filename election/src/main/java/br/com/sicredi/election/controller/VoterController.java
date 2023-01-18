@@ -5,6 +5,7 @@ import br.com.sicredi.election.annotation.VoterDeleteStandard;
 import br.com.sicredi.election.annotation.VoterSaveStandard;
 import br.com.sicredi.election.core.dto.voter.VoterRequest;
 import br.com.sicredi.election.core.dto.voter.VoterResponse;
+import br.com.sicredi.election.core.dto.voter.VoterUpdateRequest;
 import br.com.sicredi.election.service.VoterService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -35,8 +36,13 @@ public class VoterController {
 
     @PostMapping
     @VoterSaveStandard
-    public ResponseEntity<VoterResponse> save (@RequestBody VoterRequest request){
+    public ResponseEntity<VoterResponse> save(@RequestBody VoterRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body(voterService.save(request));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<VoterResponse> update(@RequestBody VoterUpdateRequest request, @PathVariable("id") Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(voterService.update(request,id));
     }
 
     @DeleteMapping("/{id}")

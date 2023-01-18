@@ -7,7 +7,7 @@ springdoc:
 
 server:
   servlet:
-    context-path: /api/v1
+    context-path: /api/v2
 
 spring:
   application:
@@ -19,7 +19,7 @@ spring:
     defer-datasource-initialization: true
     database: postgresql
   datasource:
-    url: jdbc:postgresql://localhost:5432/eleicao
+    url: jdbc:postgresql://localhost:5432/eleicaoteste
     username: postgres
     password: 1234
     driver-class-name: org.postgresql.Driver

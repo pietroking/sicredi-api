@@ -31,4 +31,9 @@ public class Candidate {
     @Column(name = "party")
     private String party;
 
+    public void update(Long number, String party){
+        this.number = number;
+        this.party = party;
+    }
+
 }

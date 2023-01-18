@@ -59,11 +59,22 @@ public class ZoneServiceTest {
     }
 
     @Test
+    @DisplayName("Teste tentar criar zona com numero ja existente")
+    public void creat_whenIsError(){
+        // MOCKS
+        when(zoneMapper.requestToEntity(any())).thenReturn(ZoneScenarioFactory.PAYLOAD_ZONE_13);
+        when(zoneRepository.findByNumber(any())).thenThrow(Message.ZONE_NUMBER_IS_PRESENT.asBusinessException());
+        // CHAMADA AO SERVICE A SER TESTADO
+        // COMPARAÇÔES
+        assertThrows(BusinessException.class,()->zoneService.save(ZoneScenarioFactory.PAYLOAD_REQUEST_13));
+    }
+
+    @Test
     @DisplayName("Teste para criar uma zona com numero já existente")
     public void creat_whenPayloadIsError(){
         // MOCKS
-        when(zoneRepository.findByNumber(any())).thenThrow(Message.ZONE_NUMBER_IS_PRESENT.asBusinessException());
         when(zoneMapper.requestToEntity(any())).thenReturn(ZoneScenarioFactory.PAYLOAD_ZONE_13);
+        when(zoneRepository.findByNumber(any())).thenReturn(Optional.of(ZoneScenarioFactory.PAYLOAD_ZONE_13));
         // CHAMADA AO SERVICE A SER TESTADO
         // COMPARAÇÔES
         assertThrows(BusinessException.class,()->zoneService.save(ZoneScenarioFactory.PAYLOAD_REQUEST_13));
@@ -95,6 +106,17 @@ public class ZoneServiceTest {
         // CHAMADA AO SERVICE A SER TESTADO
         // COMPARAÇÔES
         assertThrows(BusinessException.class, ()->zoneService.update(ZoneScenarioFactory.PAYLOAD_REQUEST_17, 1L));
+    }
+
+    @Test
+    @DisplayName("Teste tentar atualizar uma zona com um numero já existente")
+    public void update_whenNumberExist(){
+        // MOCKS
+        when(zoneRepository.findById(any())).thenReturn(Optional.of(ZoneScenarioFactory.PAYLOAD_ZONE_13));
+        when(zoneRepository.findByNumber(any())).thenReturn(Optional.of(ZoneScenarioFactory.PAYLOAD_ZONE_13));
+        // CHAMADA AO SERVICE A SER TESTADO
+        // COMPARAÇÔES
+        assertThrows(BusinessException.class, ()->zoneService.update(ZoneScenarioFactory.PAYLOAD_REQUEST_13, 1L));
     }
 
     @Test

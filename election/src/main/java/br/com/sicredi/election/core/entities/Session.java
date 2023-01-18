@@ -33,13 +33,16 @@ public class Session {
     @Column(name = "number")
     private Long number;
 
+    @Column(name = "urn_number")
+    private Long urnNumber;
+
     public void addCollaborator(Collaborator collaborator){
         this.listCollaborator.add(collaborator);
     }
-
     public void addListVoter(Voter voter){
         this.listVoter.add(voter);
     }
-
-    public void updateNumber(Long number){this.number = number;}
+    public void deleteCollaborator(Collaborator collaborator){this.listCollaborator.remove(collaborator);
+    collaborator.setSession(null);}
+    public void updateUrnNumber(Long urnNumber){this.urnNumber = urnNumber;}
 }

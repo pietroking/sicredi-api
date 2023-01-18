@@ -11,4 +11,5 @@ public class SessionResponse {
     private Long sessionId;
     private Long zoneId;
     private Long number;
+    private Long urnNumber;
 }

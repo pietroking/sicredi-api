@@ -3,6 +3,7 @@ package br.com.sicredi.election.controller;
 import br.com.sicredi.election.core.dto.candidate.CandidateRequest;
 import br.com.sicredi.election.core.dto.candidate.CandidateResponse;
 import br.com.sicredi.election.core.dto.candidate.CandidateResultResponse;
+import br.com.sicredi.election.core.dto.candidate.CandidateUpdateRequest;
 import br.com.sicredi.election.service.CandidateService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,7 @@ public class CandidateController {
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<CandidateResponse> listCandidateForName(String name){
+    public ResponseEntity<List<CandidateResponse>> listCandidateForName(String name){
         return ResponseEntity.ok(this.candidateService.findByName(name));
     }
 
@@ -35,8 +36,13 @@ public class CandidateController {
     }
 
     @PostMapping
-    public ResponseEntity<CandidateResponse> save (@RequestBody CandidateRequest request){
+    public ResponseEntity<CandidateResponse> save(@RequestBody CandidateRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body(candidateService.save(request));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<CandidateResponse> update(@RequestBody CandidateUpdateRequest request, @PathVariable("id") Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(candidateService.update(request,id));
     }
 
     @DeleteMapping("/{id}")
