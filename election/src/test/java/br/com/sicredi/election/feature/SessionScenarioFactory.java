@@ -2,6 +2,7 @@ package br.com.sicredi.election.feature;
 
 import br.com.sicredi.election.core.dto.session.SessionRequest;
 import br.com.sicredi.election.core.dto.session.SessionResponse;
+import br.com.sicredi.election.core.dto.session.SessionUpdateRequest;
 import br.com.sicredi.election.core.entities.Session;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class SessionScenarioFactory {
     public static final Session SESSION_PAYLOAD = loadSession1();
     public static final SessionResponse SESSION_PAYLOAD_RESPONSE = loadSession1Response();
     public static final SessionRequest SESSION_PAYLOAD_REQUEST = loadSession1Request();
+    public static final SessionUpdateRequest SESSION_UPDATE_REQUEST = loadSessionUpdate();
 
     private static List<Session> loadListSession(){
         Session session1 = Session.builder().sessionId(1L).number(1L).zone(ZoneScenarioFactory.PAYLOAD_ZONE_13).build();
@@ -39,7 +41,7 @@ public class SessionScenarioFactory {
     }
 
     private static Session loadSession1(){
-        return Session.builder().sessionId(1L).number(1L).zone(ZoneScenarioFactory.PAYLOAD_ZONE_13).build();
+        return Session.builder().sessionId(1L).number(1L).zone(ZoneScenarioFactory.PAYLOAD_ZONE_13).urnNumber(1L).build();
     }
 
     private static SessionResponse loadSession1Response(){
@@ -53,6 +55,12 @@ public class SessionScenarioFactory {
     private static SessionRequest loadSession1Request(){
         SessionRequest sessionRequest = new SessionRequest();
         sessionRequest.setNumber(1L);
+        return sessionRequest;
+    }
+
+    private static SessionUpdateRequest loadSessionUpdate(){
+        SessionUpdateRequest sessionRequest = new SessionUpdateRequest();
+        sessionRequest.setUrnNumber(1L);
         return sessionRequest;
     }
 }

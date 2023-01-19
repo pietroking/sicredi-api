@@ -44,7 +44,7 @@ public class SessionService {
         Zone zone = this.zoneRepository.findById(idZone).orElseThrow(Message.ZONE_IS_NOT_EXIST::asBusinessException);
         List<SessionResponse> sessionResponseList = this.sessionMapper.listEntityToListResponse(zone.getListSession());
         if (sessionResponseList.isEmpty()){
-            throw Message.SESSION_LIST_IS_EMPTY.asBusinessException();
+            throw Message.SESSION_ZONE_LIST_IS_EMPTY.asBusinessException();
         }
         return sessionResponseList;
     }

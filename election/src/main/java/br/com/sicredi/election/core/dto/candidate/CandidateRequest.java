@@ -16,7 +16,7 @@ import javax.validation.constraints.PositiveOrZero;
 @ToString
 public class CandidateRequest {
     @NotNull(message = "O nome não pode ser nulo")
-    @NotBlank
+    @NotBlank(message = "O nome não pode ser nulo")
     private String name;
     @NotNull(message = "O cpf não pode ser nulo")
     @CPF(message = "O CPF está inválida")

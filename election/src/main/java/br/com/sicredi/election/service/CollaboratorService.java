@@ -37,9 +37,10 @@ public class CollaboratorService {
 
     public List<CollaboratorResponse> findBySession(Long idSession){
         log.info("findBySession={}",idSession);
+        this.sessionRepository.findById(idSession).orElseThrow(Message.SESSION_IS_NOT_EXIST::asBusinessException);
         List<CollaboratorResponse> collaboratorResponses = this.collaboratorMapper.listEntityToListResponse(this.collaboratorRepository.findBySessionSessionId(idSession));
         if (collaboratorResponses.isEmpty()){
-            throw Message.COLLABORATOR_LIST_IS_EMPTY.asBusinessException();
+            throw Message.COLLABORATOR_SESSION_LIST_IS_EMPTY.asBusinessException();
         }
         return collaboratorResponses;
     }

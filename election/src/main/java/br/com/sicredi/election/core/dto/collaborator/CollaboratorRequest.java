@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @ToString
 public class CollaboratorRequest {
     @NotNull(message = "O nome não pode ser nulo")
-    @NotBlank
+    @NotBlank(message = "O nome não pode ser nulo")
     private String nome;
     @NotNull(message = "O sessionId não pode ser nulo")
     private Long sessionId;

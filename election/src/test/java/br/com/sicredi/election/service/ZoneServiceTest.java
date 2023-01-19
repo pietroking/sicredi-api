@@ -12,6 +12,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +39,17 @@ public class ZoneServiceTest {
         List<ZoneResponse> list = zoneService.findAll();
         // COMPARAÇÔES
         assertEquals(ZoneScenarioFactory.LIST_ZONE_RESPONSE,list);
+    }
+
+    @Test
+    @DisplayName("Teste para realizar listagem vazia das zonas")
+    public void findAllIsEmpty(){
+        // MOCKS
+        when(zoneRepository.findAll()).thenReturn(new ArrayList<>());
+        when(zoneMapper.listEntityToListResponse(any())).thenReturn(new ArrayList<>());
+        // CHAMADA AO SERVICE A SER TESTADO
+        // COMPARAÇÔES
+        assertThrows(BusinessException.class, ()-> zoneService.findAll());
     }
 
     @Test

@@ -25,7 +25,7 @@ public class Vote {
 
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
     @JoinTable(name="vote_session",joinColumns = @JoinColumn(name="vote_id"), inverseJoinColumns = @JoinColumn(name="session_id"))
-    private List<Session> session;
+    private List<Session> session = new ArrayList<>();
 
     public void addSession(Session session){
         if(this.session==null){

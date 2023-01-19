@@ -34,7 +34,11 @@ public class VoteService {
 
     public List<VoteResponse> findAll(){
         log.info("findAll");
-        return this.voteMapper.listEntityToListResponse(this.voteRepository.findAll());
+        List<VoteResponse> voteResponses = this.voteMapper.listEntityToListResponse(this.voteRepository.findAll());
+        if (voteResponses.isEmpty()){
+            throw Message.VOTE_LIST_IS_EMPTY.asBusinessException();
+        }
+        return voteResponses;
     }
 
     @Transactional

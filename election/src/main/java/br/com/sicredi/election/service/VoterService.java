@@ -51,7 +51,7 @@ public class VoterService {
     @Transactional
     public VoterResponse update(@Valid VoterUpdateRequest request, Long id){
         log.info("update request = {}", request);
-        Voter voter = this.voterRepository.findById(id).orElseThrow(Message.COLLABORATOR_IS_NOT_EXIST::asBusinessException);
+        Voter voter = this.voterRepository.findById(id).orElseThrow(Message.VOTER_IS_NOT_EXIST::asBusinessException);
         Session session = this.sessionRepository.findById(request.getSessionId()).orElseThrow(Message.SESSION_IS_NOT_EXIST::asBusinessException);
         voter.update(session);
         session.addListVoter(voter);
