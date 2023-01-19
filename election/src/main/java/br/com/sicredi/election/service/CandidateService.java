@@ -10,6 +10,7 @@ import br.com.sicredi.election.enums.Message;
 import br.com.sicredi.election.repository.CandidateRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -36,7 +37,7 @@ public class CandidateService {
     }
 
     public List<CandidateResultResponse> countVotes(){
-        List<CandidateResultResponse> candidateResultResponses = this.candidateRepository.countVotes();
+        List<CandidateResultResponse> candidateResultResponses = this.candidateRepository.countVotesByOrderByVotesDesc();
         if (candidateResultResponses.isEmpty()){
             throw Message.CANDIDATE_COUNT_LIST_IS_EMPTY.asBusinessException();
         }
@@ -65,7 +66,7 @@ public class CandidateService {
     @Transactional
     public CandidateResponse update(@Valid CandidateUpdateRequest request, Long id){
         log.info("update request = {}", request);
-        Candidate candidate = this.candidateRepository.findById(id).orElseThrow(Message.COLLABORATOR_IS_NOT_EXIST::asBusinessException);
+        Candidate candidate = this.candidateRepository.findById(id).orElseThrow(Message.CANDIDATE_IS_NOT_EXIST::asBusinessException);
         candidate.update(request.getNumber(),request.getParty());
         return this.candidateMapper.entityToResposnse(candidate);
     }
