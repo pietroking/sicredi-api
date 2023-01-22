@@ -27,7 +27,7 @@ public class SessionController {
         return this.sessionService.findAll();
     }
 
-    @GetMapping("/{idZone}")
+    @GetMapping("/find-by-idzone")
     @ListAllSessionCodeStandard
     public ResponseEntity<List<SessionResponse>> listSessionForZone(Long idZone){
         return this.sessionService.findByZone(idZone);

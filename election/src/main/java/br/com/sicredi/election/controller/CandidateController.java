@@ -25,7 +25,7 @@ public class CandidateController {
         return this.candidateService.findAll();
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("/find-by-name")
     public ResponseEntity<List<CandidateResponse>> listCandidateForName(String name){
         return this.candidateService.findByName(name);
     }

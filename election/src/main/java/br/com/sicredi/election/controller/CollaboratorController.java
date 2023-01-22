@@ -29,7 +29,7 @@ public class CollaboratorController {
         return this.collaboratorService.findAll();
     }
 
-    @GetMapping("/{idSession}")
+    @GetMapping("find-by-idsession")
     @ListAllCollaboratorCodeStandard
     public ResponseEntity<List<CollaboratorResponse>> listCollaboratorForSession(Long idSession){
         return this.collaboratorService.findBySession(idSession);
