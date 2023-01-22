@@ -22,27 +22,27 @@ public class CandidateController {
 
     @GetMapping
     public ResponseEntity<List<CandidateResponse>> listAllCandidates(){
-        return ResponseEntity.ok(this.candidateService.findAll());
+        return this.candidateService.findAll();
     }
 
     @GetMapping("/{name}")
     public ResponseEntity<List<CandidateResponse>> listCandidateForName(String name){
-        return ResponseEntity.ok(this.candidateService.findByName(name));
+        return this.candidateService.findByName(name);
     }
 
     @GetMapping("/votes")
     public ResponseEntity<List<CandidateResultResponse>> countVotos(){
-        return ResponseEntity.ok(this.candidateService.countVotes());
+        return this.candidateService.countVotes();
     }
 
     @PostMapping
     public ResponseEntity<CandidateResponse> save(@RequestBody CandidateRequest request){
-        return ResponseEntity.status(HttpStatus.CREATED).body(candidateService.save(request));
+        return candidateService.save(request);
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<CandidateResponse> update(@RequestBody CandidateUpdateRequest request, @PathVariable("id") Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(candidateService.update(request,id));
+        return candidateService.update(request,id);
     }
 
     @DeleteMapping("/{id}")

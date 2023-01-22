@@ -8,6 +8,8 @@ import br.com.sicredi.election.enums.Message;
 import br.com.sicredi.election.repository.ZoneRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -23,34 +25,34 @@ public class ZoneService {
     private ZoneRepository zoneRepository;
     private ZoneMapper zoneMapper;
 
-    public List<ZoneResponse> findAll(){
+    public ResponseEntity<List<ZoneResponse>> findAll(){
         log.info("findAll");
         List<ZoneResponse> zoneResponseList = this.zoneMapper.listEntityToListResponse(this.zoneRepository.findAll());
         if (zoneResponseList.isEmpty()){
             throw Message.ZONE_LIST_IS_EMPTY.asBusinessException();
         }
-        return zoneResponseList;
+        return ResponseEntity.ok(zoneResponseList);
     }
 
-    public ZoneResponse save(@Valid ZoneRequest request){
+    public ResponseEntity<ZoneResponse> save(@Valid ZoneRequest request){
         log.info("save request = {}", request);
         Zone zone = this.zoneMapper.requestToEntity(request);
         this.zoneRepository.findByNumber(request.getNumber()).ifPresent(p -> {
             throw Message.ZONE_NUMBER_IS_PRESENT.asBusinessException();
         });
         Zone zoneResult = this.zoneRepository.save(zone);
-        return this.zoneMapper.entityToResponse(zoneResult);
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.zoneMapper.entityToResponse(zoneResult));
     }
 
     @Transactional
-    public ZoneResponse update(@Valid ZoneRequest request, Long id){
+    public ResponseEntity<ZoneResponse> update(@Valid ZoneRequest request, Long id){
         log.info(" update request = {}", request);
         Zone zone = this.zoneRepository.findById(id).orElseThrow(Message.ZONE_IS_NOT_EXIST::asBusinessException);
         this.zoneRepository.findByNumber(request.getNumber()).ifPresent(p -> {
             throw Message.ZONE_NUMBER_IS_PRESENT.asBusinessException();
         });
         zone.updateNumber(request.getNumber());
-        return this.zoneMapper.entityToResponse(zone);
+        return ResponseEntity.status(HttpStatus.OK).body(this.zoneMapper.entityToResponse(zone));
     }
 
     public void delete(Long id) {

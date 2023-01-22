@@ -20,12 +20,12 @@ public class VoteController {
 
     @GetMapping
     public ResponseEntity<List<VoteResponse>> listAllVotes(){
-        return ResponseEntity.ok(this.voteService.findAll());
+        return this.voteService.findAll();
     }
 
     @PostMapping
     public ResponseEntity<VoteResponse> save(@RequestBody VoteRequest request){
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.voteService.save(request));
+        return this.voteService.save(request);
     }
 
 //    @DeleteMapping("/{id}")

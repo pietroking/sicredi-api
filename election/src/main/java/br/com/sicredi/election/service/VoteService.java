@@ -13,6 +13,8 @@ import br.com.sicredi.election.repository.VoteRepository;
 import br.com.sicredi.election.repository.VoterRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -32,17 +34,17 @@ public class VoteService {
     private VoterRepository voterRepository;
     private VoteMapper voteMapper;
 
-    public List<VoteResponse> findAll(){
+    public ResponseEntity<List<VoteResponse>> findAll(){
         log.info("findAll");
         List<VoteResponse> voteResponses = this.voteMapper.listEntityToListResponse(this.voteRepository.findAll());
         if (voteResponses.isEmpty()){
             throw Message.VOTE_LIST_IS_EMPTY.asBusinessException();
         }
-        return voteResponses;
+        return ResponseEntity.ok(voteResponses);
     }
 
     @Transactional
-    public VoteResponse save(@Valid VoteRequest request){
+    public ResponseEntity<VoteResponse> save(@Valid VoteRequest request){
         log.info("save request = {}", request);
         Session session = this.sessionRepository.findById(request.getSessionId()).orElseThrow(Message.SESSION_IS_NOT_EXIST::asBusinessException);
         session.getListVoter().stream().filter(voter -> voter.getCpf().equals(request.getCpf())).findFirst().orElseThrow(Message.SESSION_VOTER_CPF_IS_NOT_PRESENT::asBusinessException);
@@ -55,7 +57,7 @@ public class VoteService {
         vote.addSession(session);
         Vote voteResult = this.voteRepository.save(vote);
         voter.setStatusVote(Boolean.TRUE);
-        return this.voteMapper.entityToResponse(voteResult, session.getSessionId());
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.voteMapper.entityToResponse(voteResult, session.getSessionId()));
     }
 
 //    public void delete(Long id){

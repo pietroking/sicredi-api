@@ -25,7 +25,7 @@ public class VoterController {
     @GetMapping
     @ListAllVoterCodeStandard
     public ResponseEntity<List<VoterResponse>> listAllSession(){
-        return ResponseEntity.ok(this.voterService.findAll());
+        return this.voterService.findAll();
     }
 
 //    @GetMapping("/{idSession}")
@@ -37,12 +37,12 @@ public class VoterController {
     @PostMapping
     @VoterSaveStandard
     public ResponseEntity<VoterResponse> save(@RequestBody VoterRequest request){
-        return ResponseEntity.status(HttpStatus.CREATED).body(voterService.save(request));
+        return voterService.save(request);
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<VoterResponse> update(@RequestBody VoterUpdateRequest request, @PathVariable("id") Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(voterService.update(request,id));
+        return voterService.update(request,id);
     }
 
     @DeleteMapping("/{id}")

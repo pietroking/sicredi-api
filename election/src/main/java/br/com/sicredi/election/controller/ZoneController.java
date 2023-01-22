@@ -25,13 +25,13 @@ public class ZoneController {
     @GetMapping
     @ListAllZoneCodeStandard
     public ResponseEntity<List<ZoneResponse>> listAllZones(){
-        return ResponseEntity.ok(this.zoneService.findAll());
+        return this.zoneService.findAll();
     }
 
     @PostMapping
     @ZoneSaveStandard
     public ResponseEntity<ZoneResponse> save(@RequestBody ZoneRequest request){
-        return ResponseEntity.status(HttpStatus.CREATED).body(zoneService.save(request));
+        return zoneService.save(request);
     }
 
     @DeleteMapping("/{id}")
@@ -44,7 +44,7 @@ public class ZoneController {
     @PutMapping("/{id}")
     @ZoneUpdateStandard
     public ResponseEntity<ZoneResponse> update(@RequestBody ZoneRequest request, @PathVariable("id") Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(zoneService.update(request, id));
+        return zoneService.update(request, id);
     }
 
 }

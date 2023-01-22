@@ -17,6 +17,6 @@ public interface CandidateRepository extends JpaRepository<Candidate, Long> {
     Optional<Candidate> findByNumber(Long number);
 
     @Query("SELECT NEW br.com.sicredi.election.core.dto.candidate.CandidateResultResponse(c.name,COUNT(v.number)) FROM Vote v inner Join Candidate c " +
-            "on c.number=v.number group by c.name ")
+            "on c.number=v.number group by c.name order by COUNT(v.number) desc")
     List<CandidateResultResponse> countVotesByOrderByVotesDesc();
 }
