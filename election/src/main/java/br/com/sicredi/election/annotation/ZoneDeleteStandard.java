@@ -19,7 +19,7 @@ import java.lang.annotation.Target;
 @ApiResponses(value = {
         @ApiResponse(responseCode = "204", description = "Zona deletada",
                 content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = ZoneResponse.class))),
-        @ApiResponse(responseCode = "400", description = "Zona não existente",
+        @ApiResponse(responseCode = "404", description = "Zona não existente",
                 content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = BusinessException.BusinessExceptionBody.class))),
         @ApiResponse(responseCode = "500", description = "Sistema indisponivel",content=@Content(mediaType = MediaType.APPLICATION_JSON_VALUE)) })
 @Operation(summary = Constants.ZONE_DELETE_SUMMARY, description = Constants.ZONE_DELETE_DESCRIPTION)

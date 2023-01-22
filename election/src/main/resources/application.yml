@@ -7,7 +7,7 @@ springdoc:
 
 server:
   servlet:
-    context-path: /api/v2
+    context-path: /api/v1
 
 spring:
   application:

@@ -17,9 +17,9 @@ import java.lang.annotation.Target;
 @Target({ ElementType.METHOD, ElementType.ANNOTATION_TYPE, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @ApiResponses(value = {
-        @ApiResponse(responseCode = "204", description = "Seção deletada",
+        @ApiResponse(responseCode = "204", description = "Colaborador deletado",
                 content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = CollaboratorResponse.class))),
-        @ApiResponse(responseCode = "400", description = "Seção não existente",
+        @ApiResponse(responseCode = "404", description = "Colaborador não existente",
                 content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = BusinessException.BusinessExceptionBody.class))),
         @ApiResponse(responseCode = "500", description = "Sistema indisponivel",content=@Content(mediaType = MediaType.APPLICATION_JSON_VALUE)) })
 @Operation(summary = Constants.COLLABORATOR_DELETE_SUMMARY, description = Constants.COLLABORATOR_DELETE_DESCRIPTION)

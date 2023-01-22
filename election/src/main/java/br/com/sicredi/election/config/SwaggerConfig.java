@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @OpenAPIDefinition(info = @Info(title = "Api eleição", description = "Plataforma de votação",
         contact = @Contact(name = "Pietro Bianchi", email = ""), version = "1.0.0"),
         servers = {
-                @Server(url = "http://localhost:8080/api/v2")})
+                @Server(url = "http://localhost:8080/api/v1")})
 public class SwaggerConfig {
 
     @Bean

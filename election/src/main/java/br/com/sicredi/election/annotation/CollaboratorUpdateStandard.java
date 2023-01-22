@@ -21,6 +21,8 @@ import java.lang.annotation.Target;
                 content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = CollaboratorResponse.class))),
         @ApiResponse(responseCode = "400", description = "Colaborador já existente",
                 content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = BusinessException.BusinessExceptionBody.class))),
+        @ApiResponse(responseCode = "404", description = "Seção não existe",
+                content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = BusinessException.BusinessExceptionBody.class))),
         @ApiResponse(responseCode = "500", description = "Sistema indisponivel",content=@Content(mediaType = MediaType.APPLICATION_JSON_VALUE)) })
 @Operation(summary = Constants.COLLABORATOR_UPDATE_SUMARY, description = Constants.COLLABORATOR_UPDATE_DESCRIPTION)
 public @interface CollaboratorUpdateStandard {

@@ -21,6 +21,10 @@ import java.lang.annotation.Target;
                 content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = SessionResponse.class))),
         @ApiResponse(responseCode = "400", description = "Seção já existente",
                 content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = BusinessException.BusinessExceptionBody.class))),
+        @ApiResponse(responseCode = "400", description = "Numero de urna já existente",
+                content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = BusinessException.BusinessExceptionBody.class))),
+        @ApiResponse(responseCode = "404", description = "Zona não existente",
+                content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = BusinessException.BusinessExceptionBody.class))),
         @ApiResponse(responseCode = "500", description = "Sistema indisponivel",content=@Content(mediaType = MediaType.APPLICATION_JSON_VALUE)) })
 @Operation(summary = Constants.SESSION_SAVE_SUMMARY, description = Constants.SESSION_SAVE_DESCRIPTION)
 public @interface SessionSaveStandard {

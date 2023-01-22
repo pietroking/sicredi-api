@@ -14,6 +14,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class SessionServiceTest {
         when(sessionRepository.findAll()).thenReturn(SessionScenarioFactory.LIST_SESSION);
         when(sessionMapper.listEntityToListResponse(any())).thenReturn(SessionScenarioFactory.LIST_SESSION_RESPONSE);
         // CHAMADA AO SERVICE A SER TESTADO
-        List<SessionResponse> list = sessionService.findAll();
+        ResponseEntity<List<SessionResponse>> list = sessionService.findAll();
         // COMPARAÇÔES
         assertEquals(SessionScenarioFactory.LIST_SESSION_RESPONSE,list);
         verify(sessionRepository,times(1)).findAll();
@@ -66,7 +67,7 @@ public class SessionServiceTest {
         when(zoneRepository.findById(any())).thenReturn(Optional.of(ZoneScenarioFactory.PAYLOAD_ZONE_13));
         when(sessionMapper.listEntityToListResponse(any())).thenReturn(SessionScenarioFactory.LIST_SESSION_RESPONSE);
         // CHAMADA AO SERVICE A SER TESTADO
-        List<SessionResponse> list = sessionService.findByZone(ZoneScenarioFactory.PAYLOAD_ZONE_13.getZoneId());
+        ResponseEntity<List<SessionResponse>> list = sessionService.findByZone(ZoneScenarioFactory.PAYLOAD_ZONE_13.getZoneId());
         // COMPARAÇÔES
         assertEquals(SessionScenarioFactory.LIST_SESSION_RESPONSE, list);
         verify(zoneRepository,times(1)).findById(1L);
@@ -105,12 +106,12 @@ public class SessionServiceTest {
         when(sessionRepository.save(any())).thenReturn(SessionScenarioFactory.SESSION_PAYLOAD);
         when(sessionMapper.entityToResponse(any())).thenReturn(SessionScenarioFactory.SESSION_PAYLOAD_RESPONSE);
         // CHAMADA AO SERVICE A SER TESTADO
-        SessionResponse response = sessionService.save(SessionScenarioFactory.SESSION_PAYLOAD_REQUEST);
+        ResponseEntity<SessionResponse> response = sessionService.save(SessionScenarioFactory.SESSION_PAYLOAD_REQUEST);
         // COMPARAÇÔES
         assertNotNull(response);
-        assertEquals(response.getSessionId(), SessionScenarioFactory.SESSION_PAYLOAD.getSessionId());
-        assertEquals(response.getNumber(), SessionScenarioFactory.SESSION_PAYLOAD.getNumber());
-        assertEquals(response.getZoneId(), SessionScenarioFactory.SESSION_PAYLOAD.getZone().getZoneId());
+        assertEquals(response.getBody().getSessionId(), SessionScenarioFactory.SESSION_PAYLOAD.getSessionId());
+        assertEquals(response.getBody().getNumber(), SessionScenarioFactory.SESSION_PAYLOAD.getNumber());
+        assertEquals(response.getBody().getZoneId(), SessionScenarioFactory.SESSION_PAYLOAD.getZone().getZoneId());
         verify(zoneRepository,times(1)).findById(any());
         verify(sessionMapper,times(1)).requstToEntity(any(),any());
         verify(sessionRepository,times(1)).findByNumber(any());
@@ -162,13 +163,13 @@ public class SessionServiceTest {
         when(sessionRepository.findByUrnNumber(any())).thenReturn(Optional.empty());
         when(sessionMapper.entityToResponse(any())).thenReturn(SessionScenarioFactory.SESSION_PAYLOAD_RESPONSE);
         // CHAMADA AO SERVICE A SER TESTADO
-        SessionResponse response = sessionService.update(SessionScenarioFactory.SESSION_UPDATE_REQUEST, SessionScenarioFactory.SESSION_PAYLOAD_RESPONSE.getSessionId());
+        ResponseEntity<SessionResponse> response = sessionService.update(SessionScenarioFactory.SESSION_UPDATE_REQUEST, SessionScenarioFactory.SESSION_PAYLOAD_RESPONSE.getSessionId());
         // COMPARAÇÔES
         assertNotNull(response);
-        assertEquals(response.getZoneId(),SessionScenarioFactory.SESSION_PAYLOAD_RESPONSE.getZoneId());
-        assertEquals(response.getNumber(),SessionScenarioFactory.SESSION_PAYLOAD_RESPONSE.getNumber());
-        assertEquals(response.getUrnNumber(),SessionScenarioFactory.SESSION_PAYLOAD_RESPONSE.getUrnNumber());
-        assertEquals(response.getSessionId(),SessionScenarioFactory.SESSION_PAYLOAD_RESPONSE.getSessionId());
+        assertEquals(response.getBody().getZoneId(),SessionScenarioFactory.SESSION_PAYLOAD_RESPONSE.getZoneId());
+        assertEquals(response.getBody().getNumber(),SessionScenarioFactory.SESSION_PAYLOAD_RESPONSE.getNumber());
+        assertEquals(response.getBody().getUrnNumber(),SessionScenarioFactory.SESSION_PAYLOAD_RESPONSE.getUrnNumber());
+        assertEquals(response.getBody().getSessionId(),SessionScenarioFactory.SESSION_PAYLOAD_RESPONSE.getSessionId());
         verify(sessionRepository,times(1)).findById(any());
         verify(sessionRepository,times(1)).findByUrnNumber(any());
         verify(sessionMapper,times(1)).entityToResponse(any());

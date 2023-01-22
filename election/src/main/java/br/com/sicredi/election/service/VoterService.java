@@ -11,6 +11,8 @@ import br.com.sicredi.election.repository.SessionRepository;
 import br.com.sicredi.election.repository.VoterRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -27,16 +29,16 @@ public class VoterService {
     private VoterMapper voterMapper;
     private SessionRepository sessionRepository;
 
-    public List<VoterResponse> findAll(){
+    public ResponseEntity<List<VoterResponse>> findAll(){
         log.info("findAll");
         List<VoterResponse> voterResponses = this.voterMapper.listEntityToListResponse(this.voterRepository.findAll());
         if (voterResponses.isEmpty()){
             throw Message.VOTER_LIST_IS_EMPTY.asBusinessException();
         }
-        return voterResponses;
+        return ResponseEntity.ok(voterResponses);
     }
 
-    public VoterResponse save(@Valid VoterRequest request){
+    public ResponseEntity<VoterResponse> save(@Valid VoterRequest request){
         log.info("save request = {}", request);
         Session session = this.sessionRepository.findById(request.getSessionId()).orElseThrow(Message.SESSION_IS_NOT_EXIST::asBusinessException);
         Voter voter = this.voterMapper.requestToEntity(request,session);
@@ -45,17 +47,17 @@ public class VoterService {
             throw Message.VOTER_CPF_IS_PRESENT.asBusinessException();
         });
         Voter voterResult = this.voterRepository.save(voter);
-        return this.voterMapper.entityToResposnse(voterResult);
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.voterMapper.entityToResposnse(voterResult));
     }
 
     @Transactional
-    public VoterResponse update(@Valid VoterUpdateRequest request, Long id){
+    public ResponseEntity<VoterResponse> update(@Valid VoterUpdateRequest request, Long id){
         log.info("update request = {}", request);
         Voter voter = this.voterRepository.findById(id).orElseThrow(Message.VOTER_IS_NOT_EXIST::asBusinessException);
         Session session = this.sessionRepository.findById(request.getSessionId()).orElseThrow(Message.SESSION_IS_NOT_EXIST::asBusinessException);
         voter.update(session);
         session.addListVoter(voter);
-        return this.voterMapper.entityToResposnse(voter);
+        return ResponseEntity.status(HttpStatus.OK).body(this.voterMapper.entityToResposnse(voter));
     }
 
     public void delete(Long id){

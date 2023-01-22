@@ -11,6 +11,8 @@ import br.com.sicredi.election.repository.CollaboratorRepository;
 import br.com.sicredi.election.repository.SessionRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -27,25 +29,26 @@ public class CollaboratorService {
     private CollaboratorMapper collaboratorMapper;
     private SessionRepository sessionRepository;
 
-    public List<CollaboratorResponse> findAll(){
+    public ResponseEntity<List<CollaboratorResponse>> findAll(){
         log.info("findAll");
         List<CollaboratorResponse> collaboratorResponses = this.collaboratorMapper.listEntityToListResponse(this.collaboratorRepository.findAll());
         if (collaboratorResponses.isEmpty()){
-            throw Message.COLLABORATOR_LIST_IS_EMPTY.asBusinessException();        }
-        return collaboratorResponses;
+            throw Message.COLLABORATOR_LIST_IS_EMPTY.asBusinessException();
+        }
+        return ResponseEntity.ok(collaboratorResponses);
     }
 
-    public List<CollaboratorResponse> findBySession(Long idSession){
+    public ResponseEntity<List<CollaboratorResponse>> findBySession(Long idSession){
         log.info("findBySession={}",idSession);
         this.sessionRepository.findById(idSession).orElseThrow(Message.SESSION_IS_NOT_EXIST::asBusinessException);
         List<CollaboratorResponse> collaboratorResponses = this.collaboratorMapper.listEntityToListResponse(this.collaboratorRepository.findBySessionSessionId(idSession));
         if (collaboratorResponses.isEmpty()){
             throw Message.COLLABORATOR_SESSION_LIST_IS_EMPTY.asBusinessException();
         }
-        return collaboratorResponses;
+        return ResponseEntity.ok(collaboratorResponses);
     }
 
-    public CollaboratorResponse save(@Valid CollaboratorRequest request){
+    public ResponseEntity<CollaboratorResponse> save(@Valid CollaboratorRequest request){
         log.info("save request = {}", request);
         Session session = this.sessionRepository.findById(request.getSessionId()).orElseThrow(Message.SESSION_IS_NOT_EXIST::asBusinessException);
         Collaborator collaborator = this.collaboratorMapper.requestToEntity(request,session);
@@ -54,18 +57,17 @@ public class CollaboratorService {
             throw Message.COLLABORATOR_CPF_IS_PRESENT.asBusinessException();
         });
         Collaborator collaboratorResult = this.collaboratorRepository.save(collaborator);
-        return this.collaboratorMapper.entityToResposnse(collaboratorResult);
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.collaboratorMapper.entityToResposnse(collaboratorResult));
     }
 
     @Transactional
-    public CollaboratorResponse update(@Valid CollaboratorUpdateRequest request, Long id){
+    public ResponseEntity<CollaboratorResponse> update(@Valid CollaboratorUpdateRequest request, Long id){
         log.info("update request = {}", request);
         Collaborator collaborator = this.collaboratorRepository.findById(id).orElseThrow(Message.COLLABORATOR_IS_NOT_EXIST::asBusinessException);
         Session session = this.sessionRepository.findById(request.getSessionId()).orElseThrow(Message.SESSION_IS_NOT_EXIST::asBusinessException);
         collaborator.update(session);
         session.addCollaborator(collaborator);
-        return this.collaboratorMapper.entityToResposnse(collaborator);
-
+        return ResponseEntity.status(HttpStatus.OK).body(this.collaboratorMapper.entityToResposnse(collaborator));
     }
 
     public void delete(Long id){

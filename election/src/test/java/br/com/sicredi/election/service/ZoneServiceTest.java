@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ public class ZoneServiceTest {
         when(zoneRepository.findAll()).thenReturn(ZoneScenarioFactory.LIST_ZONE);
         when(zoneMapper.listEntityToListResponse(any())).thenReturn(ZoneScenarioFactory.LIST_ZONE_RESPONSE);
         // CHAMADA AO SERVICE A SER TESTADO
-        List<ZoneResponse> list = zoneService.findAll();
+        ResponseEntity<List<ZoneResponse>> list = zoneService.findAll();
         // COMPARAÇÔES
         assertEquals(ZoneScenarioFactory.LIST_ZONE_RESPONSE,list);
     }
@@ -61,11 +62,11 @@ public class ZoneServiceTest {
         when(zoneRepository.save(any())).thenReturn(ZoneScenarioFactory.PAYLOAD_ZONE_13);
         when(zoneMapper.entityToResponse(any())).thenReturn(ZoneScenarioFactory.PAYLOAD_ZONE_13_RESPONSE);
         // CHAMADA AO SERVICE A SER TESTADO
-        ZoneResponse response = zoneService.save(ZoneScenarioFactory.PAYLOAD_REQUEST_13);
+        ResponseEntity<ZoneResponse> response = zoneService.save(ZoneScenarioFactory.PAYLOAD_REQUEST_13);
         // COMPARAÇÔES
         assertNotNull(response);
-        assertEquals(response.getNumber(), ZoneScenarioFactory.PAYLOAD_ZONE_13.getNumber());
-        assertEquals(response.getZoneId(), ZoneScenarioFactory.PAYLOAD_ZONE_13.getZoneId());
+        assertEquals(response.getBody().getNumber(), ZoneScenarioFactory.PAYLOAD_ZONE_13.getNumber());
+        assertEquals(response.getBody().getZoneId(), ZoneScenarioFactory.PAYLOAD_ZONE_13.getZoneId());
         verify(zoneRepository,times(1)).findByNumber(any());
         verify(zoneRepository,times(1)).save(any());
         verify(zoneMapper,times(1)).requestToEntity(any());
@@ -101,11 +102,11 @@ public class ZoneServiceTest {
         when(zoneRepository.findById(any())).thenReturn(Optional.of(ZoneScenarioFactory.PAYLOAD_ZONE_13));
         when(zoneRepository.findByNumber(any())).thenReturn(Optional.empty());
         // CHAMADA AO SERVICE A SER TESTADO
-        ZoneResponse response = zoneService.update(ZoneScenarioFactory.PAYLOAD_REQUEST_13, ZoneScenarioFactory.PAYLOAD_ZONE_13_RESPONSE.getZoneId());
+        ResponseEntity<ZoneResponse> response = zoneService.update(ZoneScenarioFactory.PAYLOAD_REQUEST_13, ZoneScenarioFactory.PAYLOAD_ZONE_13_RESPONSE.getZoneId());
         // COMPARAÇÔES
         assertNotNull(response);
-        assertEquals(response.getNumber(), ZoneScenarioFactory.PAYLOAD_ZONE_13_RESPONSE.getNumber());
-        assertEquals(response.getZoneId(), ZoneScenarioFactory.PAYLOAD_ZONE_13_RESPONSE.getZoneId());
+        assertEquals(response.getBody().getNumber(), ZoneScenarioFactory.PAYLOAD_ZONE_13_RESPONSE.getNumber());
+        assertEquals(response.getBody().getZoneId(), ZoneScenarioFactory.PAYLOAD_ZONE_13_RESPONSE.getZoneId());
         verify(zoneRepository,times(1)).findByNumber(any());
         verify(zoneRepository,times(1)).findById(any());
         verify(zoneMapper,times(1)).entityToResponse(any());

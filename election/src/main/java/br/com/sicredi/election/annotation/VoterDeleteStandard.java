@@ -19,7 +19,7 @@ import java.lang.annotation.Target;
 @ApiResponses(value = {
         @ApiResponse(responseCode = "204", description = "Eleitor deletado",
                 content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = VoterResponse.class))),
-        @ApiResponse(responseCode = "400", description = "Eleitor não existente",
+        @ApiResponse(responseCode = "404", description = "Eleitor não existente",
                 content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = BusinessException.BusinessExceptionBody.class))),
         @ApiResponse(responseCode = "500", description = "Sistema indisponivel",content=@Content(mediaType = MediaType.APPLICATION_JSON_VALUE)) })
 @Operation(summary = Constants.VOTER_DELETE_SUMMARY, description = Constants.VOTER_DELETE_DESCRIPTION)

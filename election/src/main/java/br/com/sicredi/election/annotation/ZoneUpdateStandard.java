@@ -21,6 +21,8 @@ import java.lang.annotation.Target;
                 content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = ZoneResponse.class))),
         @ApiResponse(responseCode = "400", description = "Zona já existente",
                 content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = BusinessException.BusinessExceptionBody.class))),
+        @ApiResponse(responseCode = "404", description = "Zona não existente",
+                content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = BusinessException.BusinessExceptionBody.class))),
         @ApiResponse(responseCode = "500", description = "Sistema indisponivel",content=@Content(mediaType = MediaType.APPLICATION_JSON_VALUE)) })
 @Operation(summary = Constants.ZONE_UPDATE_SUMARY, description = Constants.ZONE_UPDATE_DESCRIPTION)
 public @interface ZoneUpdateStandard {

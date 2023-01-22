@@ -24,19 +24,19 @@ public class SessionController {
     @GetMapping
     @ListAllSessionCodeStandard
     public ResponseEntity<List<SessionResponse>> listAllSession(){
-        return ResponseEntity.ok(this.sessionService.findAll());
+        return this.sessionService.findAll();
     }
 
     @GetMapping("/{idZone}")
     @ListAllSessionCodeStandard
     public ResponseEntity<List<SessionResponse>> listSessionForZone(Long idZone){
-        return ResponseEntity.ok(this.sessionService.findByZone(idZone));
+        return this.sessionService.findByZone(idZone);
     }
 
     @PostMapping
     @SessionSaveStandard
     public ResponseEntity<SessionResponse> save(@RequestBody SessionRequest request){
-        return ResponseEntity.status(HttpStatus.CREATED).body(sessionService.save(request));
+        return sessionService.save(request);
     }
 
     @DeleteMapping("/{id}")
@@ -49,6 +49,6 @@ public class SessionController {
     @PatchMapping("/{id}")
     @SessionUpdateStandard
     public ResponseEntity<SessionResponse> update(@RequestBody SessionUpdateRequest request, @PathVariable("id") Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(sessionService.update(request, id));
+        return sessionService.update(request, id);
     }
 }
