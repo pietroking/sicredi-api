@@ -20,6 +20,6 @@ public class VoterRequest {
     @NotNull(message = "O sessionId não pode ser nulo")
     private Long sessionId;
     @NotNull(message = "O cpf não pode ser nulo")
-    @CPF(message = "O CPF está inválida")
+    @CPF(message = "O CPF está inválido")
     private String cpf;
 }

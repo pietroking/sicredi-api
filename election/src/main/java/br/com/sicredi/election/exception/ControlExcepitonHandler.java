@@ -30,7 +30,6 @@ public class ControlExcepitonHandler {
     protected ResponseEntity<Object> handleConflict(BusinessException ex, WebRequest request) {
         HttpHeaders responseHeaders = new HttpHeaders();
         return ResponseEntity.status(ex.getHttpStatusCode()).headers(responseHeaders).body(ex.getOnlyBody());
-
     }
 
     @ExceptionHandler({ Throwable.class })
@@ -145,7 +144,6 @@ public class ControlExcepitonHandler {
         HttpHeaders responseHeaders = new HttpHeaders();
 
         return ResponseEntity.status(ex.getHttpStatusCode()).headers(responseHeaders).body(ex.getOnlyBody());
-
     }
 
     @ExceptionHandler({ HttpRequestMethodNotSupportedException.class })
