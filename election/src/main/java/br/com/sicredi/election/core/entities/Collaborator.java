@@ -1,7 +1,5 @@
 package br.com.sicredi.election.core.entities;
 
-import br.com.sicredi.election.core.dto.collaborator.CollaboratorRequest;
-import br.com.sicredi.election.core.dto.collaborator.CollaboratorUpdateRequest;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,7 +19,7 @@ public class Collaborator {
     private Long collaboratorId;
 
     @Column(name = "name")
-    private String nome;
+    private String name;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "session_id", referencedColumnName = "session_id")

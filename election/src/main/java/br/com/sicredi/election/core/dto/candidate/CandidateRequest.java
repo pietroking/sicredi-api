@@ -19,7 +19,7 @@ public class CandidateRequest {
     @NotBlank(message = "O nome não pode ser nulo")
     private String name;
     @NotNull(message = "O cpf não pode ser nulo")
-    @CPF(message = "O CPF está inválida")
+    @CPF(message = "O CPF está inválido")
     private String cpf;
     @NotNull(message = "O number não pode ser nulo")
     @PositiveOrZero

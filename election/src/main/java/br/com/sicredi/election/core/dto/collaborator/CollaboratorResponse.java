@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class CollaboratorResponse {
     private Long collaboratorId;
-    private String nome;
+    private String name;
     private Long sessionId;
     private String cpf;
 }
