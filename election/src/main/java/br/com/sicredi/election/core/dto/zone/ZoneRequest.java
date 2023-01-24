@@ -16,6 +16,6 @@ import javax.validation.constraints.PositiveOrZero;
 @ToString
 public class ZoneRequest {
     @NotNull(message = "O number não pode ser nulo")
-    @PositiveOrZero
+    @PositiveOrZero(message = "O number não pode ser negativo")
     private Long number;
 }

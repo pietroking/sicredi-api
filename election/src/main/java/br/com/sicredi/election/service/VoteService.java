@@ -34,14 +34,14 @@ public class VoteService {
     private VoterRepository voterRepository;
     private VoteMapper voteMapper;
 
-    public ResponseEntity<List<VoteResponse>> findAll(){
-        log.info("findAll");
-        List<VoteResponse> voteResponses = this.voteMapper.listEntityToListResponse(this.voteRepository.findAll());
-        if (voteResponses.isEmpty()){
-            throw Message.VOTE_LIST_IS_EMPTY.asBusinessException();
-        }
-        return ResponseEntity.ok(voteResponses);
-    }
+//    public ResponseEntity<List<VoteResponse>> findAll(){
+//        log.info("findAll");
+//        List<VoteResponse> voteResponses = this.voteMapper.listEntityToListResponse(this.voteRepository.findAll());
+//        if (voteResponses.isEmpty()){
+//            throw Message.VOTE_LIST_IS_EMPTY.asBusinessException();
+//        }
+//        return ResponseEntity.ok(voteResponses);
+//    }
 
     @Transactional
     public ResponseEntity<VoteResponse> save(@Valid VoteRequest request){
@@ -60,9 +60,8 @@ public class VoteService {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.voteMapper.entityToResponse(voteResult, session.getSessionId()));
     }
 
-//    public void delete(Long id){
-//        Vote vote = this.voteRepository.findById(id).orElseThrow(Message.CANDIDATE_CPF_IS_NOT_EXIST::asBusinessException);
-//        this.voteRepository.deleteById(vote.getVoteId());
-//        log.info("method = delete by id = {}",id);
-//    }
+    public void delete(Long id){
+        this.voteRepository.deleteById(id);
+        log.info("method = delete by id = {}",id);
+    }
 }

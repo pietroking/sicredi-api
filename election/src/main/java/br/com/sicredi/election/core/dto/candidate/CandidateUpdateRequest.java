@@ -14,7 +14,7 @@ import javax.validation.constraints.PositiveOrZero;
 @ToString
 public class CandidateUpdateRequest {
     @NotNull(message = "O number não pode ser nulo")
-    @PositiveOrZero
+    @PositiveOrZero(message = "O number não pode ser negativo")
     private Long number;
     @NotNull(message = "O party não pode ser nulo")
     private String party;

@@ -39,7 +39,7 @@ public class ZoneServiceTest {
         // CHAMADA AO SERVICE A SER TESTADO
         ResponseEntity<List<ZoneResponse>> list = zoneService.findAll();
         // COMPARAÇÔES
-        assertEquals(ZoneScenarioFactory.LIST_ZONE_RESPONSE,list);
+        assertEquals(ZoneScenarioFactory.LIST_ZONE_RESPONSE,list.getBody());
     }
 
     @Test

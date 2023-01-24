@@ -1,5 +1,6 @@
 package br.com.sicredi.election.controller;
 
+import br.com.sicredi.election.annotation.VoteSaveCodeStardard;
 import br.com.sicredi.election.core.dto.vote.VoteRequest;
 import br.com.sicredi.election.core.dto.vote.VoteResponse;
 import br.com.sicredi.election.service.VoteService;
@@ -18,19 +19,20 @@ import java.util.List;
 public class VoteController {
     private VoteService voteService;
 
-    @GetMapping
-    public ResponseEntity<List<VoteResponse>> listAllVotes(){
-        return this.voteService.findAll();
-    }
+//    @GetMapping
+//    public ResponseEntity<List<VoteResponse>> listAllVotes(){
+//        return this.voteService.findAll();
+//    }
 
     @PostMapping
+    @VoteSaveCodeStardard
     public ResponseEntity<VoteResponse> save(@RequestBody VoteRequest request){
         return this.voteService.save(request);
     }
 
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> delete(@PathVariable("id") Long id){
-//        this.voteService.delete(id);
-//        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-//    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id){
+        this.voteService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

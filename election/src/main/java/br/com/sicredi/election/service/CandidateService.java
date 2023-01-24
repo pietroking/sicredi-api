@@ -73,7 +73,7 @@ public class CandidateService {
     }
 
     public void delete(Long id){
-        Candidate candidate = this.candidateRepository.findById(id).orElseThrow(Message.CANDIDATE_CPF_IS_NOT_EXIST::asBusinessException);
+        Candidate candidate = this.candidateRepository.findById(id).orElseThrow(Message.CANDIDATE_IS_NOT_EXIST::asBusinessException);
         this.candidateRepository.deleteById(candidate.getCandidateId());
         log.info("method = delete by id = {}",id);
     }

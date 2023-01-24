@@ -22,7 +22,7 @@ public class CandidateRequest {
     @CPF(message = "O CPF está inválido")
     private String cpf;
     @NotNull(message = "O number não pode ser nulo")
-    @PositiveOrZero
+    @PositiveOrZero(message = "O number não pode ser negativo")
     private Long number;
     @NotNull(message = "O party não pode ser nulo")
     private String party;
