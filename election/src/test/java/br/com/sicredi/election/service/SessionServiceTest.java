@@ -121,7 +121,7 @@ public class SessionServiceTest {
     }
 
     @Test
-    @DisplayName("Teste para criar uma seção com zoneId inexistente")
+    @DisplayName("create - Teste para criar uma seção com zoneId inexistente")
     public void creat_whenPayloadIsZoneIdError(){
         // MOCKS
         when(zoneRepository.findById(any())).thenThrow(Message.ZONE_IS_NOT_EXIST.asBusinessException());
@@ -131,7 +131,7 @@ public class SessionServiceTest {
     }
 
     @Test
-    @DisplayName("Teste para criar uma seção com numero já existente")
+    @DisplayName("create - Teste para criar uma seção com numero já existente")
     public void creat_whenPayloadIsNumberSessionError(){
         // MOCKS
         when(zoneRepository.findById(any())).thenReturn(Optional.of(ZoneScenarioFactory.PAYLOAD_ZONE_13));
@@ -143,7 +143,7 @@ public class SessionServiceTest {
     }
 
     @Test
-    @DisplayName("Teste para criar uma seção com numero de urna já existente")
+    @DisplayName("create - Teste para criar uma seção com numero de urna já existente")
     public void creat_whenPayloadIsUrnNumberSessionError(){
         // MOCKS
         when(zoneRepository.findById(any())).thenReturn(Optional.of(ZoneScenarioFactory.PAYLOAD_ZONE_13));
@@ -156,7 +156,7 @@ public class SessionServiceTest {
     }
 
     @Test
-    @DisplayName("Teste para atualizar uma seção com sucesso")
+    @DisplayName("update - Teste para atualizar uma seção com sucesso")
     public void update_whenPayloadIsOk(){
         // MOCKS
         when(sessionRepository.findById(any())).thenReturn(Optional.of(SessionScenarioFactory.SESSION_PAYLOAD));
@@ -176,7 +176,7 @@ public class SessionServiceTest {
     }
 
     @Test
-    @DisplayName("Teste tentar atualizar uma seção inexistente")
+    @DisplayName("update - Teste tentar atualizar uma seção inexistente")
     public void update_whenSessionIdError(){
         // MOCKS
         when(sessionRepository.findById(any())).thenThrow(Message.SESSION_IS_NOT_EXIST.asBusinessException());
@@ -186,7 +186,7 @@ public class SessionServiceTest {
     }
 
     @Test
-    @DisplayName("Teste tentar atualizar uma seção com um numero já existente")
+    @DisplayName("update - Teste tentar atualizar uma seção com um numero já existente")
     public void update_whenNumberSessionIsError(){
         // MOCKS
         when(sessionRepository.findById(any())).thenReturn(Optional.of(SessionScenarioFactory.SESSION_PAYLOAD));
@@ -197,7 +197,7 @@ public class SessionServiceTest {
     }
 
     @Test
-    @DisplayName("Teste para deletar uma seção com sucesso")
+    @DisplayName("delete - Teste para deletar uma seção com sucesso")
     public void delete_whenIdIsOk(){
         // MOCKS
         when(sessionRepository.findById(any())).thenReturn(Optional.of(SessionScenarioFactory.SESSION_PAYLOAD));
@@ -209,7 +209,7 @@ public class SessionServiceTest {
     }
 
     @Test
-    @DisplayName("Teste para tentar deletar uma seção inexistente")
+    @DisplayName("delete - Teste para tentar deletar uma seção inexistente")
     public void delete_whenIdIsError(){
         // MOCKS
         when(sessionRepository.findById(any())).thenThrow(Message.SESSION_IS_NOT_EXIST.asBusinessException());
