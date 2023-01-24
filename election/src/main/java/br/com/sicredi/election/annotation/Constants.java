@@ -33,4 +33,18 @@ public class Constants {
     public static final String VOTER_DELETE_DESCRIPTION="Irá deletar um eleitor na api";
     public static final String VOTER_UPDATE_SUMARY="Atualizar um eleitor";
     public static final String VOTER_UPDATE_DESCRIPTION="Irá atualizar um eleitor na api";
+    public static final String LIST_ALL_CANDIDATE_SUMMARY="Listar todos os candidatos";
+    public static final String LIST_ALL_CANDIDATE_DESCRIPTION="Irá realizar uma listagem de todos candidatos registrados";
+    public static final String CANDIDATE_SAVE_SUMMARY="Registrar um novo candidato";
+    public static final String CANDIDATE_SAVE_DESCRIPTION="Irá cadastrar um novo candidato na api";
+    public static final String CANDIDATE_DELETE_SUMMARY="Deletar um candidato";
+    public static final String CANDIDATE_DELETE_DESCRIPTION="Irá deletar um candidato api";
+    public static final String CANDIDATE_UPDATE_SUMARY="Atualizar um candidato";
+    public static final String CANDIDATE_UPDATE_DESCRIPTION="Irá atualizar um candidato na api";
+    public static final String CANDIDATE_VOTE_COUNT_SUMMARY="Verificar os votos";
+    public static final String CANDIDATE_VOTE_COUNT_DESCRIPTION="Irá listas a quantidade de votos de cada candidatos";
+    public static final String CANDIDATE_VOTE_FIND_BY_NAME_SUMMARY= "Procurar por nome";
+    public static final String CANDIDATE_VOTE_FIND_BY_NAME_DESCRIPTION= "Irá procurar e listar candidatos pelo nome";
+    public static final String VOTE_SAVE_SUMMARY="Registrar um voto";
+    public static final String VOTE_SAVE_DESCRIPTION="Irá cadastrar um voto na api";
 }

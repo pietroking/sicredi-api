@@ -44,7 +44,7 @@ public class SessionServiceTest {
         // CHAMADA AO SERVICE A SER TESTADO
         ResponseEntity<List<SessionResponse>> list = sessionService.findAll();
         // COMPARAÇÔES
-        assertEquals(SessionScenarioFactory.LIST_SESSION_RESPONSE,list);
+        assertEquals(SessionScenarioFactory.LIST_SESSION_RESPONSE,list.getBody());
         verify(sessionRepository,times(1)).findAll();
         verify(sessionMapper,times(1)).listEntityToListResponse(any());
     }
@@ -69,7 +69,7 @@ public class SessionServiceTest {
         // CHAMADA AO SERVICE A SER TESTADO
         ResponseEntity<List<SessionResponse>> list = sessionService.findByZone(ZoneScenarioFactory.PAYLOAD_ZONE_13.getZoneId());
         // COMPARAÇÔES
-        assertEquals(SessionScenarioFactory.LIST_SESSION_RESPONSE, list);
+        assertEquals(SessionScenarioFactory.LIST_SESSION_RESPONSE, list.getBody());
         verify(zoneRepository,times(1)).findById(1L);
         verify(sessionMapper,times(1)).listEntityToListResponse(any());
     }

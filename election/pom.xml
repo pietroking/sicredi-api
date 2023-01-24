@@ -119,6 +119,36 @@
 		<finalName>election</finalName>
 		<plugins>
 			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<formats>
+						<format>html</format>
+						<format>xml</format>
+					</formats>
+					<check />
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.20</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.junit.platform</groupId>
+						<artifactId>junit-platform-surefire-provider</artifactId>
+						<version>1.1.0</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<reuseForks>true</reuseForks>
+					<includes>
+						<include>**/*Test.java</include>
+					</includes>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
@@ -148,6 +178,58 @@
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
 						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.7</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>coverage-check</id>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<rule>
+									<element>CLASS</element>
+									<limits>
+										<limit>
+											<counter>CLASS</counter>
+											<value>COVEREDRATIO</value>
+										</limit>
+									</limits>
+								</rule>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<excludes>
+						<exclude>br/com/sicredi/election/annotation/*/**</exclude>
+						<exclude>br/com/sicredi/election/config/*/**</exclude>
+						<exclude>br/com/sicredi/election/core/entities/*/**</exclude>
+						<exclude>br/com/sicredi/election/core/dto/*/**</exclude>
+						<exclude>br/com/sicredi/election/core/mapper/*/**</exclude>
+						<exclude>br/com/sicredi/election/enums/*/**</exclude>
+						<exclude>br/com/sicredi/election/repository/*/**</exclude>
+						<exclude>br/com/sicredi/election/exception/*/**</exclude>
+						<exclude>br/com/sicredi/election/controller/*/**</exclude>
+						<exclude>br/com/sicredi/election/ElectionApplication.*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>

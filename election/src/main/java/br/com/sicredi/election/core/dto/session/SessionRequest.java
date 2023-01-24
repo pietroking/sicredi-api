@@ -16,9 +16,9 @@ public class SessionRequest {
     @NotNull(message = "O idZone não pode ser nulo")
     private Long idZone;
     @NotNull(message = "O number não pode ser nulo")
-    @PositiveOrZero
+    @PositiveOrZero(message = "O number não pode ser negativo")
     private Long number;
     @NotNull(message = "O urnNumber não pode ser nulo")
-    @PositiveOrZero
+    @PositiveOrZero(message = "O urnNumber não pode ser negativo")
     private Long urnNumber;
 }

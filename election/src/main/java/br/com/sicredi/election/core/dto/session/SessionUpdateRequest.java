@@ -14,6 +14,6 @@ import javax.validation.constraints.PositiveOrZero;
 @ToString
 public class SessionUpdateRequest {
     @NotNull(message = "O urnNumber não pode ser nulo")
-    @PositiveOrZero
+    @PositiveOrZero(message = "O urnNumber não pode ser negativo")
     private Long urnNumber;
 }
