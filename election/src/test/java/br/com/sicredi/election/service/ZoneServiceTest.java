@@ -31,7 +31,7 @@ public class ZoneServiceTest {
     @InjectMocks
     private ZoneService zoneService;
     @Test
-    @DisplayName("Teste para realizar listagem das zonas")
+    @DisplayName("findall - Teste para realizar listagem das zonas")
     public void findAll(){
         // MOCKS
         when(zoneRepository.findAll()).thenReturn(ZoneScenarioFactory.LIST_ZONE);
@@ -43,7 +43,7 @@ public class ZoneServiceTest {
     }
 
     @Test
-    @DisplayName("Teste para realizar listagem vazia das zonas")
+    @DisplayName("findAll - Teste tentar realizar listagem vazia das zonas")
     public void findAllIsEmpty(){
         // MOCKS
         when(zoneRepository.findAll()).thenReturn(new ArrayList<>());
@@ -54,7 +54,7 @@ public class ZoneServiceTest {
     }
 
     @Test
-    @DisplayName("Teste para criar uma zona com sucesso")
+    @DisplayName("create - Teste para criar uma zona com sucesso")
     public void creat_whenPayloadIsOk(){
         // MOCKS
         when(zoneRepository.findByNumber(any())).thenReturn(Optional.empty());
@@ -73,7 +73,7 @@ public class ZoneServiceTest {
     }
 
     @Test
-    @DisplayName("Teste tentar criar zona com numero ja existente")
+    @DisplayName("create - Teste tentar criar zona com numero ja existente")
     public void creat_whenIsError(){
         // MOCKS
         when(zoneMapper.requestToEntity(any())).thenReturn(ZoneScenarioFactory.PAYLOAD_ZONE_13);
@@ -84,7 +84,7 @@ public class ZoneServiceTest {
     }
 
     @Test
-    @DisplayName("Teste para criar uma zona com numero já existente")
+    @DisplayName("create - Teste para criar uma zona com numero já existente")
     public void creat_whenPayloadIsError(){
         // MOCKS
         when(zoneMapper.requestToEntity(any())).thenReturn(ZoneScenarioFactory.PAYLOAD_ZONE_13);
@@ -95,7 +95,7 @@ public class ZoneServiceTest {
     }
 
     @Test
-    @DisplayName("Teste para atualizar uma zona com sucesso")
+    @DisplayName("update - Teste para atualizar uma zona com sucesso")
     public void update_whenPayloadIsOk(){
         // MOCKS
         when(zoneMapper.entityToResponse(any())).thenReturn(ZoneScenarioFactory.PAYLOAD_ZONE_13_RESPONSE);
@@ -113,7 +113,7 @@ public class ZoneServiceTest {
     }
 
     @Test
-    @DisplayName("Teste tentar atualizar uma zona inexistente")
+    @DisplayName("update - Teste tentar atualizar uma zona inexistente")
     public void update_whenIdIsError(){
         // MOCKS
         when(zoneRepository.findById(any())).thenThrow(Message.ZONE_IS_NOT_EXIST.asBusinessException());
@@ -123,7 +123,7 @@ public class ZoneServiceTest {
     }
 
     @Test
-    @DisplayName("Teste tentar atualizar uma zona com um numero já existente")
+    @DisplayName("update - Teste tentar atualizar uma zona com um numero já existente")
     public void update_whenNumberExist(){
         // MOCKS
         when(zoneRepository.findById(any())).thenReturn(Optional.of(ZoneScenarioFactory.PAYLOAD_ZONE_13));
@@ -134,7 +134,7 @@ public class ZoneServiceTest {
     }
 
     @Test
-    @DisplayName("Teste para deletar uma zona com sucesso")
+    @DisplayName("delete - Teste para deletar uma zona com sucesso")
     public void delete_whenIdIsOk(){
         // MOCKS
         when(zoneRepository.findById(any())).thenReturn(Optional.of(ZoneScenarioFactory.PAYLOAD_ZONE_13));
@@ -146,7 +146,7 @@ public class ZoneServiceTest {
     }
 
     @Test
-    @DisplayName("Teste para tentar deletar uma zona não existente")
+    @DisplayName("delete - Teste para tentar deletar uma zona não existente")
     public void delete_whenIdIsError(){
         // MOCKS
         when(zoneRepository.findById(any())).thenThrow(Message.ZONE_IS_NOT_EXIST.asBusinessException());

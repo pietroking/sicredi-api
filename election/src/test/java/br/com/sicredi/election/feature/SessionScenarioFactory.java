@@ -41,7 +41,7 @@ public class SessionScenarioFactory {
     }
 
     private static Session loadSession1(){
-        return Session.builder().sessionId(1L).number(1L).zone(ZoneScenarioFactory.PAYLOAD_ZONE_13).urnNumber(1L).build();
+        return Session.builder().sessionId(1L).number(1L).zone(ZoneScenarioFactory.PAYLOAD_ZONE_13).urnNumber(1L).listVoter(new ArrayList<>()).listCollaborator(new ArrayList<>()).build();
     }
 
     private static SessionResponse loadSession1Response(){
