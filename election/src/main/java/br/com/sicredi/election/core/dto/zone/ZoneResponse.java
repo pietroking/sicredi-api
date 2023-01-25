@@ -1,6 +1,5 @@
 package br.com.sicredi.election.core.dto.zone;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

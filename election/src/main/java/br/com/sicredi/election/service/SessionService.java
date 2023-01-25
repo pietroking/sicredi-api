@@ -7,7 +7,6 @@ import br.com.sicredi.election.core.entities.Session;
 import br.com.sicredi.election.core.entities.Zone;
 import br.com.sicredi.election.core.mapper.SessionMapper;
 import br.com.sicredi.election.enums.Message;
-import br.com.sicredi.election.repository.CollaboratorRepository;
 import br.com.sicredi.election.repository.SessionRepository;
 import br.com.sicredi.election.repository.ZoneRepository;
 import lombok.AllArgsConstructor;
@@ -20,7 +19,6 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -30,7 +28,7 @@ public class SessionService {
     private SessionRepository sessionRepository;
     private ZoneRepository zoneRepository;
     private SessionMapper sessionMapper;
-    private CollaboratorRepository collaboratorRepository;
+
 
     public ResponseEntity<List<SessionResponse>> findAll(){
         log.info("findAll");
@@ -78,10 +76,8 @@ public class SessionService {
         return ResponseEntity.status(HttpStatus.OK).body(this.sessionMapper.entityToResponse(session));
     }
 
-//    @Transactional
     public void delete(Long id) {
         Session session = this.sessionRepository.findById(id).orElseThrow(Message.SESSION_IS_NOT_EXIST::asBusinessException);
-//        session.getListCollaborator().forEach(session::deleteCollaborator);
         this.sessionRepository.deleteById(session.getSessionId());
         log.info("method = delete by id = {}",id);
     }

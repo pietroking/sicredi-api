@@ -13,20 +13,12 @@ public class ZoneScenarioFactory {
     public static final ZoneRequest PAYLOAD_REQUEST_13 = loadZoneRequest();
     public static final Zone PAYLOAD_ZONE_13 = loadZone13();
     public static final ZoneResponse PAYLOAD_ZONE_13_RESPONSE = loadZone13Response();
-    public static final ZoneResponse PAYLOAD_ZONE_17_RESPONSE = loadZone17Response();
     public static final ZoneRequest PAYLOAD_REQUEST_17 = loadZone17Request();
 
     private static ZoneRequest loadZone17Request() {
         ZoneRequest zoneRequest = new ZoneRequest();
         zoneRequest.setNumber(17L);
         return zoneRequest;
-    }
-
-    private static ZoneResponse loadZone17Response() {
-        ZoneResponse zone17 = new ZoneResponse();
-        zone17.setZoneId(1L);
-        zone17.setNumber(17L);
-        return zone17;
     }
 
     private static ZoneResponse loadZone13Response() {
@@ -67,6 +59,4 @@ public class ZoneScenarioFactory {
         zoneList.add(zone17);
         return zoneList;
     }
-
-
 }

@@ -20,8 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -33,15 +31,6 @@ public class VoteService {
     private CandidateRepository candidateRepository;
     private VoterRepository voterRepository;
     private VoteMapper voteMapper;
-
-//    public ResponseEntity<List<VoteResponse>> findAll(){
-//        log.info("findAll");
-//        List<VoteResponse> voteResponses = this.voteMapper.listEntityToListResponse(this.voteRepository.findAll());
-//        if (voteResponses.isEmpty()){
-//            throw Message.VOTE_LIST_IS_EMPTY.asBusinessException();
-//        }
-//        return ResponseEntity.ok(voteResponses);
-//    }
 
     @Transactional
     public ResponseEntity<VoteResponse> save(@Valid VoteRequest request){

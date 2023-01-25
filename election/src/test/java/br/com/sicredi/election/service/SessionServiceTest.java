@@ -38,12 +38,11 @@ public class SessionServiceTest {
     @Test
     @DisplayName("Teste para realizar listagem das seções")
     public void findAllSession(){
-        // MOCKS
         when(sessionRepository.findAll()).thenReturn(SessionScenarioFactory.LIST_SESSION);
         when(sessionMapper.listEntityToListResponse(any())).thenReturn(SessionScenarioFactory.LIST_SESSION_RESPONSE);
-        // CHAMADA AO SERVICE A SER TESTADO
+
         ResponseEntity<List<SessionResponse>> list = sessionService.findAll();
-        // COMPARAÇÔES
+
         assertEquals(SessionScenarioFactory.LIST_SESSION_RESPONSE,list.getBody());
         verify(sessionRepository,times(1)).findAll();
         verify(sessionMapper,times(1)).listEntityToListResponse(any());
@@ -52,23 +51,20 @@ public class SessionServiceTest {
     @Test
     @DisplayName("Teste para realizar listagem das seções vazias")
     public void findAllSessionIsEmpty(){
-        // MOCKS
         when(sessionRepository.findAll()).thenReturn(new ArrayList<>());
         when(sessionMapper.listEntityToListResponse(any())).thenReturn(new ArrayList<>());
-        // CHAMADA AO SERVICE A SER TESTADO
-        // COMPARAÇÔES
+
         assertThrows(BusinessException.class, ()-> sessionService.findAll());
     }
 
     @Test
     @DisplayName("Teste para realizar listagem das seções de uma zona")
     public void findByZone(){
-        // MOCKS
         when(zoneRepository.findById(any())).thenReturn(Optional.of(ZoneScenarioFactory.PAYLOAD_ZONE_13));
         when(sessionMapper.listEntityToListResponse(any())).thenReturn(SessionScenarioFactory.LIST_SESSION_RESPONSE);
-        // CHAMADA AO SERVICE A SER TESTADO
+
         ResponseEntity<List<SessionResponse>> list = sessionService.findByZone(ZoneScenarioFactory.PAYLOAD_ZONE_13.getZoneId());
-        // COMPARAÇÔES
+
         assertEquals(SessionScenarioFactory.LIST_SESSION_RESPONSE, list.getBody());
         verify(zoneRepository,times(1)).findById(1L);
         verify(sessionMapper,times(1)).listEntityToListResponse(any());
@@ -77,37 +73,33 @@ public class SessionServiceTest {
     @Test
     @DisplayName("Teste para realizar listagem das seções de uma zona vazia")
     public void findByZoneIsEmpty(){
-        // MOCKS
         when(zoneRepository.findById(any())).thenReturn(Optional.of(ZoneScenarioFactory.PAYLOAD_ZONE_13));
         when(sessionMapper.listEntityToListResponse(any())).thenReturn(new ArrayList<>());
-        // CHAMADA AO SERVICE A SER TESTADO
-        // COMPARAÇÔES
+
         assertThrows(BusinessException.class, ()-> sessionService.findByZone(ZoneScenarioFactory.PAYLOAD_ZONE_13.getZoneId()));
     }
 
     @Test
     @DisplayName("Teste tentar realizar listagem das seções de uma zona inexistente")
     public void findByZoneError(){
-        // MOCKS
         when(zoneRepository.findById(any())).thenThrow(Message.ZONE_IS_NOT_EXIST.asBusinessException());
-        // CHAMADA AO SERVICE A SER TESTADO
-        // COMPARAÇÔES
+
         assertThrows(BusinessException.class,()->sessionService.findByZone(ZoneScenarioFactory.PAYLOAD_ZONE_13.getZoneId()));
     }
 
     @Test
     @DisplayName("Teste para criar uma seção com sucesso")
     public void creat_whenPayloadIsOk(){
-        // MOCKS
+
         when(zoneRepository.findById(any())).thenReturn(Optional.of(ZoneScenarioFactory.PAYLOAD_ZONE_13));
         when(sessionMapper.requstToEntity(any(), any())).thenReturn(SessionScenarioFactory.SESSION_PAYLOAD);
         when(sessionRepository.findByNumber(any())).thenReturn(Optional.empty());
         when(sessionRepository.findByUrnNumber(any())).thenReturn(Optional.empty());
         when(sessionRepository.save(any())).thenReturn(SessionScenarioFactory.SESSION_PAYLOAD);
         when(sessionMapper.entityToResponse(any())).thenReturn(SessionScenarioFactory.SESSION_PAYLOAD_RESPONSE);
-        // CHAMADA AO SERVICE A SER TESTADO
+
         ResponseEntity<SessionResponse> response = sessionService.save(SessionScenarioFactory.SESSION_PAYLOAD_REQUEST);
-        // COMPARAÇÔES
+
         assertNotNull(response);
         assertEquals(response.getBody().getSessionId(), SessionScenarioFactory.SESSION_PAYLOAD.getSessionId());
         assertEquals(response.getBody().getNumber(), SessionScenarioFactory.SESSION_PAYLOAD.getNumber());
@@ -123,48 +115,41 @@ public class SessionServiceTest {
     @Test
     @DisplayName("create - Teste para criar uma seção com zoneId inexistente")
     public void creat_whenPayloadIsZoneIdError(){
-        // MOCKS
         when(zoneRepository.findById(any())).thenThrow(Message.ZONE_IS_NOT_EXIST.asBusinessException());
-        // CHAMADA AO SERVICE A SER TESTADO
-        // COMPARAÇÔES
+
         assertThrows(BusinessException.class,()->sessionService.save(SessionScenarioFactory.SESSION_PAYLOAD_REQUEST));
     }
 
     @Test
     @DisplayName("create - Teste para criar uma seção com numero já existente")
     public void creat_whenPayloadIsNumberSessionError(){
-        // MOCKS
         when(zoneRepository.findById(any())).thenReturn(Optional.of(ZoneScenarioFactory.PAYLOAD_ZONE_13));
         when(sessionMapper.requstToEntity(any(), any())).thenReturn(SessionScenarioFactory.SESSION_PAYLOAD);
         when(sessionRepository.findByNumber(any())).thenReturn(Optional.of(SessionScenarioFactory.SESSION_PAYLOAD));
-        // CHAMADA AO SERVICE A SER TESTADO
-        // COMPARAÇÔES
+
         assertThrows(BusinessException.class,()->sessionService.save(SessionScenarioFactory.SESSION_PAYLOAD_REQUEST));
     }
 
     @Test
     @DisplayName("create - Teste para criar uma seção com numero de urna já existente")
     public void creat_whenPayloadIsUrnNumberSessionError(){
-        // MOCKS
         when(zoneRepository.findById(any())).thenReturn(Optional.of(ZoneScenarioFactory.PAYLOAD_ZONE_13));
         when(sessionMapper.requstToEntity(any(), any())).thenReturn(SessionScenarioFactory.SESSION_PAYLOAD);
         when(sessionRepository.findByNumber(any())).thenReturn(Optional.empty());
         when(sessionRepository.findByUrnNumber(any())).thenReturn(Optional.of(SessionScenarioFactory.SESSION_PAYLOAD));
-        // CHAMADA AO SERVICE A SER TESTADO
-        // COMPARAÇÔES
+
         assertThrows(BusinessException.class,()->sessionService.save(SessionScenarioFactory.SESSION_PAYLOAD_REQUEST));
     }
 
     @Test
     @DisplayName("update - Teste para atualizar uma seção com sucesso")
     public void update_whenPayloadIsOk(){
-        // MOCKS
         when(sessionRepository.findById(any())).thenReturn(Optional.of(SessionScenarioFactory.SESSION_PAYLOAD));
         when(sessionRepository.findByUrnNumber(any())).thenReturn(Optional.empty());
         when(sessionMapper.entityToResponse(any())).thenReturn(SessionScenarioFactory.SESSION_PAYLOAD_RESPONSE);
-        // CHAMADA AO SERVICE A SER TESTADO
+
         ResponseEntity<SessionResponse> response = sessionService.update(SessionScenarioFactory.SESSION_UPDATE_REQUEST, SessionScenarioFactory.SESSION_PAYLOAD_RESPONSE.getSessionId());
-        // COMPARAÇÔES
+
         assertNotNull(response);
         assertEquals(response.getBody().getZoneId(),SessionScenarioFactory.SESSION_PAYLOAD_RESPONSE.getZoneId());
         assertEquals(response.getBody().getNumber(),SessionScenarioFactory.SESSION_PAYLOAD_RESPONSE.getNumber());
@@ -178,43 +163,36 @@ public class SessionServiceTest {
     @Test
     @DisplayName("update - Teste tentar atualizar uma seção inexistente")
     public void update_whenSessionIdError(){
-        // MOCKS
         when(sessionRepository.findById(any())).thenThrow(Message.SESSION_IS_NOT_EXIST.asBusinessException());
-        // CHAMADA AO SERVICE A SER TESTADO
-        // COMPARAÇÔES
+
         assertThrows(BusinessException.class,()->sessionService.update(SessionScenarioFactory.SESSION_UPDATE_REQUEST, SessionScenarioFactory.SESSION_PAYLOAD_RESPONSE.getSessionId()));
     }
 
     @Test
     @DisplayName("update - Teste tentar atualizar uma seção com um numero já existente")
     public void update_whenNumberSessionIsError(){
-        // MOCKS
         when(sessionRepository.findById(any())).thenReturn(Optional.of(SessionScenarioFactory.SESSION_PAYLOAD));
         when(sessionRepository.findByUrnNumber(any())).thenReturn(Optional.of(SessionScenarioFactory.SESSION_PAYLOAD));
-        // CHAMADA AO SERVICE A SER TESTADO
-        // COMPARAÇÔES
+
         assertThrows(BusinessException.class,()->sessionService.update(SessionScenarioFactory.SESSION_UPDATE_REQUEST, SessionScenarioFactory.SESSION_PAYLOAD_RESPONSE.getSessionId()));
     }
 
     @Test
     @DisplayName("delete - Teste para deletar uma seção com sucesso")
     public void delete_whenIdIsOk(){
-        // MOCKS
         when(sessionRepository.findById(any())).thenReturn(Optional.of(SessionScenarioFactory.SESSION_PAYLOAD));
         doNothing().when(sessionRepository).deleteById(any());
-        // CHAMADA AO SERVICE A SER TESTADO
+
         sessionService.delete(1L);
-        // COMPARAÇÔES
+
         verify(sessionRepository,times(1)).deleteById(any());
     }
 
     @Test
     @DisplayName("delete - Teste para tentar deletar uma seção inexistente")
     public void delete_whenIdIsError(){
-        // MOCKS
         when(sessionRepository.findById(any())).thenThrow(Message.SESSION_IS_NOT_EXIST.asBusinessException());
-        // CHAMADA AO SERVICE A SER TESTADO
-        // COMPARAÇÔES
+
         assertThrows(BusinessException.class, ()->sessionService.delete(1L));
     }
 
