@@ -2,7 +2,6 @@ package br.com.sicredi.election.core.mapper;
 
 import br.com.sicredi.election.core.dto.vote.VoteRequest;
 import br.com.sicredi.election.core.dto.vote.VoteResponse;
-import br.com.sicredi.election.core.entities.Session;
 import br.com.sicredi.election.core.entities.Vote;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -35,7 +35,7 @@ public class VoterScenarioFactory {
     }
 
     private static Voter createVoter() {
-        return Voter.builder().voterId(1L).name("Fulano").session(SessionScenarioFactory.SESSION_PAYLOAD).cpf("94123018041").build();
+        return Voter.builder().voterId(1L).name("Fulano").session(SessionScenarioFactory.SESSION_PAYLOAD).cpf("94123018041").statusVote(false).build();
     }
 
     private static VoterResponse createVoterResponse() {

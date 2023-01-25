@@ -4,6 +4,7 @@ import br.com.sicredi.election.core.dto.session.SessionRequest;
 import br.com.sicredi.election.core.dto.session.SessionResponse;
 import br.com.sicredi.election.core.dto.session.SessionUpdateRequest;
 import br.com.sicredi.election.core.entities.Session;
+import br.com.sicredi.election.core.entities.Voter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,9 @@ public class SessionScenarioFactory {
     }
 
     private static Session loadSession1(){
-        return Session.builder().sessionId(1L).number(1L).zone(ZoneScenarioFactory.PAYLOAD_ZONE_13).urnNumber(1L).listVoter(new ArrayList<>()).listCollaborator(new ArrayList<>()).build();
+        List<Voter> list = new ArrayList<>();
+        list.add(VoterScenarioFactory.VOTER);
+        return Session.builder().sessionId(1L).number(1L).zone(ZoneScenarioFactory.PAYLOAD_ZONE_13).urnNumber(1L).listVoter(list).listCollaborator(new ArrayList<>()).build();
     }
 
     private static SessionResponse loadSession1Response(){

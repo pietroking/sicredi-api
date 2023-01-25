@@ -4,10 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
 
 @NoArgsConstructor
 @Getter
